@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher interface</title>
+</head>
+<body>
+    <div id="outer1">
+        <div id="outer2">
+            <h1>
+                Teacher Login Page
+            </h1>
+        </div>
+        
+        <form action="">
+            <div class="inner">
+                <h4>Teacher Id <br>
+                <input type="text"></h4>
+            </div>
+            <div class="inner">
+            <h4>Password <br>
+            <input type="password"></h4>
+            </div>
+            <div class="inner" style="margin-left: 25%; margin-top: 50px;">
+                <input type="submit" value="Login" style="height: 60px; width: 400px;" >
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+<style>
+    form{
+    --border:2px red solid;
+    margin-top:100px ;
+    }
+    h1{
+        font-size: 300%;
+        text-align: center;
+        
+    }
+    h4{
+        font-size: 30px;
+        margin-bottom: 0px;
+    }
+    input{
+        border-radius: 5px;
+        width: 300px;
+        height: 30px;
+        
+        
+    }
+    .inner {
+        --border: 2px solid;
+        margin-left: 30%;
+    }
+    #outer2{
+        border: 2px solid grey;
+        background-color: grey;
+        box-shadow: 0 0 50px grey;
+    }
+    #outer1{
+        border: red solid;
+        background-color: lightgrey;
+        height: 80vh;
+        margin-top: 10vh;
+
+    }
+    input:focus{
+        background-color: #8dc6ec;
+    }
+    input[type="submit"] {
+            background-color: #559bca; /* Blue background for submit button */
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input[type="submit"]:hover {
+        background-color: rgb(24, 78, 140);
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.8); /* Light blue shadow on focus */
+    }
+</style>

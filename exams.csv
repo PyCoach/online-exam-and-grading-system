@@ -1,0 +1,6 @@
+exam_id,exam_name,teacher_id,total_marks,start_time,end_time
+501,UT01_social,101,100,9:00AM,12:00PM
+502,UT01,102,150,2:00PM,5:00PM
+503,Physics Practical,103,50,10:00AM,12:30PM
+504,English Midterm,104,80,11:00AM,1:00PM
+505,Biology Final,105,120,1:00PM,4:00PM

@@ -1,0 +1,20 @@
+ques_id,ques,type,options,answers,marks,difficulty
+1,Who is known as Father of nation?,mcq,"Mahatma Gandhi, Jawarharlal nehru,S.C. Bose,none of these",Mahtma Gandhi,1,easy
+2,What was the primary objective of the Non-Cooperation Movement led by Mahatma Gandhi?,mcq,"Achieving complete independence,
+Boycotting British goods and institutions,
+Demanding civil rights for Indians,
+None of the above",Boycotting British goods and institutions,2,normal
+3,Explain the significance of Mahatma Gandhi's Salt March in 1930.,short,none,"The Salt March, or Dandi March, was a nonviolent protest against the British salt monopoly in India. Led by Mahatma Gandhi, it marked a significant moment in the Indian independence movement and demonstrated the power of nonviolent civil disobedience.",3,hard
+4,What was the primary objective of the Non-Cooperation Movement led by Mahatma Gandhi?,mcq,"Achieving complete independence
+Boycotting British goods and institutions
+Demanding civil rights for Indians
+None of the above",Boycotting British goods and institutions,2,hard
+5,Mahatma Gandhi advocated for complete nonviolence in both personal and political matters.,tf,"True,False",TRUE,1,easy
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
