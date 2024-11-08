@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher interface</title>
 </head>
-<body>
+<body style="background-color: rgb(198, 192, 192);">
     <div id="outer1">
         <div id="outer2">
             <h1>
-                Teacher Login Page
+                Welcome
             </h1>
         </div>
         
         <form action="">
             <div class="inner">
-                <h4>Teacher Id <br>
+                <h4>Teacher/ student Id <br>
                 <input type="text"></h4>
             </div>
             <div class="inner">
             <h4>Password <br>
             <input type="password"></h4>
             </div>
-            <div class="inner" style="margin-left: 25%; margin-top: 50px;">
+            <div class="inner" style="margin-left: 33%; margin-top: 50px;">
                 <input type="submit" value="Login" style="height: 60px; width: 400px;" >
             </div>
         </form>
@@ -48,15 +48,17 @@
         border-radius: 5px;
         width: 300px;
         height: 30px;
+        max-width: 400px;
+        text-align: center;
         
         
     }
     .inner {
         --border: 2px solid;
-        margin-left: 30%;
+        margin-left: 37%;
     }
     #outer2{
-        border: 2px solid grey;
+        --border: 2px solid grey;
         background-color: grey;
         box-shadow: 0 0 50px grey;
     }
@@ -64,6 +66,7 @@
         border: red solid;
         background-color: lightgrey;
         height: 80vh;
+        width: 100%;
         margin-top: 10vh;
 
     }

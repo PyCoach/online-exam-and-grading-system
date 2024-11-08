@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: grey;">
+    <h1>St. Lawrence Sr. Sec. School</h1>
+    <div id="outer">
+
+        <div id="form">
+            <form action="">
+                <h2> Welcome to The login portal </h2> <br>
+                <label for="userID">👤</label><input type="text" class="details" placeholder="Enter your user id"> <br>
+                
+                
+                <label for="password">🔒</label><input class="details" type="password" placeholder="Enter your password">
+                
+                
+                <input id="submit" type="submit" value="Login">
+            </form>
+            <p>New user? <a href="">Register here</a></p>
+            
+        </div>
+
+        <div id="logo">
+            <img src="/stl .jpg" alt="">
+        
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    h1{
+        text-align: center;
+        margin-top: 5%;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    
+    h2{
+        text-align: center;
+        margin-top: 80px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #outer{
+        background-color: white;
+        display: flex;
+        --border: 2px solid;
+        width: 100%;
+        margin: auto;
+        height: auto;
+        max-width: 800px;
+        box-shadow: 0 0 10px red;
+        border-radius: 10px;
+        
+    }
+    #logo{
+        border-radius:10px;
+        --box-shadow: 0 0 10px red;
+        flex: 1;
+        order: -1;
+    }
+    #form{
+        text-align: center;
+        margin:auto;
+        flex: 1;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit:cover;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    
+        
+    }
+    label{
+        font-size: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-left: 0px;
+        
+    }
+    .details{
+        border:none ;
+        border-bottom: 2px black solid;
+        width: 70%;
+        height: 30px;
+        outline: none;
+        font-size: large;
+        opacity: 60%; 
+        margin-bottom: 50px ;
+    }
+    #submit{
+        font-size: 30px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        width: 200px;
+        height: 50px;
+        background-color: rgb(81, 87, 87);
+        border-radius: 30px;
+    }
+    #submit:hover{
+        background-color: rgb(94, 13, 123);
+    }
+    #submit:focus{
+        box-shadow: 0 0 10px blue;
+    }
+</style>
