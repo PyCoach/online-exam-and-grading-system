@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+
+</head>
+<body style="background-color: #f0f0f0;">
+    <div id="logo">
+        <h1>St. Lawrence Sr. Sec. School</h1>
+        <img src="stl logo.jpg" alt="stl logo" style="max-width: 6%; margin-top:2%;">
+    </div>
+    
+    <div id="outer">
+
+        <div id="form">
+            <form action="/perform_registration.html" method="post">
+                <h2> Welcome to the registration page </h2> <br>
+
+                <!-- --name input -->
+                <label for="name">👤</label><input type="text" class="details" name="name" placeholder="Enter your name"> <br>
+
+                <!-- dob input* -->
+                <label for="dob"  > 📅 <p style="display: inline;"> Enter your Date of birth </label>
+                    <input type="date" id="dob" name="dob" ></p> <br>
+                
+                <!-- admission no. input -->
+                <label for="">🤵</label>
+                <input placeholder="enter your adddmission number " type="text" class="details" name="addmission_no">
+                <br>
+                
+                <!-- UserId -->
+                <label for="">🤵</label>
+                <input placeholder="enter your desired UserId" type="text" class="details" name="UserId">
+                <br>
+
+                <!-- --password input -->
+                <label for="password">🔒</label><input class="details" type="password" placeholder="Enter your password" name="password">
+                
+                <!-- --login button -->
+                <input id="submit" type="submit" value="Login" style="align-items: center; border: 2px rgb(48, 130, 108);">
+            </form><br>
+
+            <p style="margin-left: 25%;">Already a user? <a href="login_page.html">Sign In</a></p>
+            
+        
+    </div>
+</body>
+</html>
+
+<style>
+    div{
+    border: 2px solid red;
+}
+    h1{
+        text-align: center;
+        margin-top: 5%;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-right: 10px;
+    }
+    
+    
+    h2{
+        text-align: center;
+        margin-top: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #outer{
+        background-color: #ffffff;
+        display: flex;
+        --border: 2px solid;
+        width: 100%;
+        margin: auto;
+        height: auto;
+        max-width: 800px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        
+    }
+    #image{
+        border-radius:10px;
+        --box-shadow: 0 0 10px red;
+        flex: 1;
+        order: -1;
+    }
+    #form{
+        max-width:60%;
+        text-align:left;
+        margin:auto;
+
+    }
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit:cover;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    
+        
+    }
+    label{
+        font-size: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-left: 50px;
+        
+        
+    }
+    #logo{
+        --border: 2px solid red;
+        display: flex;
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        
+    }
+    .details{
+        border:none ;
+        border-bottom: 2px black solid;
+        width: 70%;
+        height: 30px;
+        outline: none;
+        font-size: large;
+        opacity: 60%; 
+        margin-bottom: 50px ;
+    }
+    #submit{
+        font-size: 30px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        width: 200px;
+        height: 50px;
+        background-color: #3a3a3a;
+        border-radius: 30px;
+        margin-left: 25%;
+    }
+    #submit:hover{
+        background-color: #5a2d9f;
+    }
+    #submit:focus{
+        box-shadow: 0 0 10px blue;
+    }
+    body, h1, h2, label, .details, #submit {
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+    
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    opacity: 50%;
+    display: inline;
+    border-bottom: 2px solid black;
+    padding-right: 40px;
+
+}
+#dob{
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    border-radius: 5px;
+    background-color: rgb(93, 178, 178);
+    margin-left: 05px;
+    margin-bottom: 40px;
+}
+
+</style>

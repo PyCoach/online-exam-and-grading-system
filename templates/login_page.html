@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+
 </head>
-<body style="background-color: grey;">
-    <h1>St. Lawrence Sr. Sec. School</h1>
+<body style="background-color: #f0f0f0;">
+    <div id="logo">
+        <h1>St. Lawrence Sr. Sec. School</h1>
+        <img src="stl logo.jpg" alt="stl logo" style="max-width: 6%; margin-top:2%;">
+    </div>
+    
     <div id="outer">
 
         <div id="form">
-            <form action="">
+            <form action="/login_page.html" method="post" >
                 <h2> Welcome to The login portal </h2> <br>
-                <label for="userID">👤</label><input type="text" class="details" placeholder="Enter your user id"> <br>
+
+                <!-- User id input -->
+                <label for="userID">👤</label>
+                <input type="text" class="details" placeholder="Enter your user id" name="UserId"> <br>
                 
+                <!-- user password -->
+                <label for="password">🔒</label><input class="details" type="password" placeholder="Enter your password" name="password">
                 
-                <label for="password">🔒</label><input class="details" type="password" placeholder="Enter your password">
-                
-                
+                <!-- login button -->
                 <input id="submit" type="submit" value="Login">
+
             </form>
-            <p>New user? <a href="">Register here</a></p>
+            <p>New user? <a href="registration_page.html">Register here</a></p>
             
         </div>
 
-        <div id="logo">
+        <div id="image">
             <img src="/stl .jpg" alt="">
         
         </div>
@@ -37,6 +47,7 @@
         text-align: center;
         margin-top: 5%;
         font-family: Arial, Helvetica, sans-serif;
+        margin-right: 10px;
     }
     
     
@@ -46,18 +57,18 @@
         font-family: Arial, Helvetica, sans-serif;
     }
     #outer{
-        background-color: white;
+        background-color: #ffffff;
         display: flex;
         --border: 2px solid;
         width: 100%;
         margin: auto;
         height: auto;
         max-width: 800px;
-        box-shadow: 0 0 10px red;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         
     }
-    #logo{
+    #image{
         border-radius:10px;
         --box-shadow: 0 0 10px red;
         flex: 1;
@@ -83,6 +94,15 @@
         margin-left: 0px;
         
     }
+    #logo{
+        --border: 2px solid red;
+        display: flex;
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        
+    }
     .details{
         border:none ;
         border-bottom: 2px black solid;
@@ -99,13 +119,18 @@
         color: white;
         width: 200px;
         height: 50px;
-        background-color: rgb(81, 87, 87);
+        background-color: #3a3a3a;
         border-radius: 30px;
     }
     #submit:hover{
-        background-color: rgb(94, 13, 123);
+        background-color: #5a2d9f;
     }
     #submit:focus{
         box-shadow: 0 0 10px blue;
     }
+    body, h1, h2, label, .details, #submit {
+    font-family: 'Roboto', Arial, sans-serif;
+}
+    
+
 </style>
