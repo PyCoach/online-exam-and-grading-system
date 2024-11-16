@@ -1,19 +1,27 @@
-from flask import Flask,render_template
-app=Flask(__name__)
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
 
 @app.route("/")
 def index():
     return render_template('login_page.html')
 
-@app.route('/registration_page')
+@app.route("/register")
 def register():
-    return render_template('/registration_page.html')
+    return render_template('registration_page.html')
 
-@app.route('/perform_registration')
+@app.route("/perform_registration",methods=['post'])
 def perform_registration():
-    return "Hi" 
+    name=request.form.get('name')
+    dob=request.form.get('dob')
+    email=request.form.get('email')
+    adm_no=request.form.get('adm_no')
+    user_id=request.form.get('user_id')
+    password=request.form.get('password')
+    return f"hello {name}"
 
-@app.route('/perform_login')
+@app.route('/perform_login',methods=['post'])
 def perform_login():
-    return "Hi"
+    return 'testsgtrg'
+   
 app.run(debug=True)
