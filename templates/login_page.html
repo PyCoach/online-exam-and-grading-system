@@ -26,10 +26,10 @@
 
                 <!-- User id input -->
                 <label for="userID">👤</label>
-                <input type="text" class="details" placeholder="Enter your user id" name="UserId"> <br>
+                <input type="text" class="details" placeholder="Enter your user id" name="user_id" required> <br>
                 
                 <!-- user password -->
-                <label for="password">🔒</label><input class="details" type="password" placeholder="Enter your password" name="password">
+                <label for="password">🔒</label><input class="details" type="password" placeholder="Enter your password" name="password" required>
                 
                 <!-- login button -->
                 <input id="submit" type="submit" value="Login">
@@ -48,6 +48,12 @@
 </html>
 
 <style>
+    body{   
+        background-image: url("/stl_logo.jpg"); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-blend-mode: color;
+    }
     h1{
         text-align: center;
         margin-top: 5%;
@@ -136,6 +142,7 @@
     body, h1, h2, label, .details, #submit {
     font-family: 'Roboto', Arial, sans-serif;
 }
+    
     
 
 </style>
