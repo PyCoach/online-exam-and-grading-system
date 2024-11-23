@@ -1,11 +1,27 @@
-addmission_no,email,name ,dob,gender,address,phone_no
-STL123456,aiden.james92@gmail.com,Aiden,2005-03-14,Male,"Rajeev Nagar, Haldwani, Uttarakhand",9876543210
-STL789012,emma.smith87@yahoo.com,Emma,2003-07-22,Female,"Shivalik Colony, Haldwani, Uttarakhand",9987654321
-STL345678,liam.brown45@ho!~aQA!~e2w1`q  AAS.com,Liam,2006-11-03,Non-binary,"Ramnagar Road, Haldwani, Uttarakhand",9123456789
-STL901234,olivia.johnson33@outlook.com,Olivia,2004-01-18,Genderqueer,"Railway Road, Haldwani, Uttarakhand",9345678901
-STL567890,noah.wilson56@aol.com,Noah,2002-04-29,Transgender Male,"Galla Mandi, Haldwani, Uttarakhand",9501234567
-STL234567,sophia.davis78@icloud.com,Sophia,2005-10-12,Transgender Female,"Nainital Road, Haldwani, Uttarakhand",9678901234
-STL890123,mason.martinez64@live.com,Mason,2007-02-25,Agender,"Bhawani Garden, Haldwani, Uttarakhand",9214567890
-STL678901,ava.garcia21@zoho.com,Ava,2004-08-09,Two-Spirit,"Lakhanpur, Haldwani, Uttarakhand",9321054321
-STL456789,lucas.lee99@protonmail.com,Lucas,2003-12-05,Genderfluid,"Khatima Road, Haldwani, Uttarakhand",9635274109
-STL123789,mia.rodriguez12@mail.com,Mia,2006-06-30,Bigender,"Banbhoolpura, Haldwani, Uttarakhand",9786345012
+"adm_no","name","email","dob","gender","address","phone_no"
+"STL1234","Aditya","aditya123@gmail.com","2005-03-14","Male","Rajeev Nagar, Haldwani, Uttarakhand",9876543210
+"STL5678","Ananya","ananya456@gmail.com","2003-07-22","Female","Shivalik Colony, Haldwani, Uttarakhand",9987654321
+"STL9101","Arjun","arjun789@gmail.com","2006-11-03","Non-binary","Ramnagar Road, Haldwani, Uttarakhand",9123456789
+"STL2345","Kavya","kavya101@gmail.com","2004-01-18","Genderqueer","Railway Road, Haldwani, Uttarakhand",9345678901
+"STL5670","Raj","raj1234@gmail.com","2002-04-29","Transgender Male","Galla Mandi, Haldwani, Uttarakhand",9501234567
+"STL8901","Priya","priya5678@gmail.com","2005-10-12","Transgender Female","Nainital Road, Haldwani, Uttarakhand",9678901234
+"STL6789","Aman","aman9876@gmail.com","2007-02-25","Agender","Bhawani Garden, Haldwani, Uttarakhand",9214567890
+"STL3456","Pooja","pooja4321@gmail.com","2004-08-09","Two-Spirit","Lakhanpur, Haldwani, Uttarakhand",9321054321
+"STL7890","Abhinav","abhinav1122@gmail.com","2003-12-05","Genderfluid","Khatima Road, Haldwani, Uttarakhand",9635274109
+"STL8902","Mia","mia6543@gmail.com","2006-06-30","Bigender","Banbhoolpura, Haldwani, Uttarakhand",9786345012
+"STL1235","Amit","amit7890@gmail.com","2004-05-11","Male","Haldwani, Uttarakhand",9501234568
+"STL6781","Neha","neha2112@gmail.com","2005-12-13","Female","Almora, Uttarakhand",9678901235
+"STL2346","Rohit","rohit2015@gmail.com","2003-09-15","Male","Rudrapur, Uttarakhand",9656789012
+"STL3459","Shruti","shruti3421@gmail.com","2006-07-17","Female","Kaladhungi, Uttarakhand",9543216789
+"STL5671","Vikram","vikram1987@gmail.com","2002-08-25","Male","Bhimtal, Uttarakhand",9214785632
+"STL1239","Radhika","radhika3201@gmail.com","2004-04-02","Female","Rudrapur, Uttarakhand",9225364789
+"STL7893","Harshit","harshit987@gmail.com","2005-02-11","Male","Haldwani, Uttarakhand",9876543211
+"STL4561","Tanuja","tanuja562@gmail.com","2007-11-18","Female","Bhimtal, Uttarakhand",9364752901
+"STL7892","Manish","manish7823@gmail.com","2006-03-01","Male","Haldwani, Uttarakhand",9678901222
+"STL3452","Sakshi","sakshi2341@gmail.com","2004-02-16","Female","Nainital, Uttarakhand",9532789145
+"STL5676","Sumit","sumit876@gmail.com","2005-08-04","Male","Haldwani, Uttarakhand",9546783210
+"STL1236","Priya","priya2009@gmail.com","2006-12-21","Female","Rudrapur, Uttarakhand",9218765432
+"STL7898","Amit","amit5912@gmail.com","2005-05-14","Male","Almora, Uttarakhand",9356178921
+"STL6782","Riya","riya7121@gmail.com","2007-09-10","Female","Haldwani, Uttarakhand",9221654789
+"STL3458","Ankit","ankit6543@gmail.com","2004-12-01","Male","Rudrapur, Uttarakhand",9123125643
+"STL5679","Parth","parth8542@gmail.com","2006-06-04","Male","Kaladhungi, Uttarakhand",9556214378
