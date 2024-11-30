@@ -6,17 +6,21 @@
     <title>UI Interface</title>
 </head>
 <body style="background-color: rgb(221, 200, 200);">
-    <h1>Hello <--name><br>
+    
+    <h1>Hello {{name}}<br>
     What would You like to do?</h1>
     
     <div>
-        <form action="">
-            <button>Create/Schedule a new exam</button> 
-            <br>
-            <button>View previous exams</button>
-            <br>
-            <button> View student scorecard</button>
+        <form action="/process_teacher_action" method="POST">
+            <button type="submit" name="action" value="create_exam">Create a new exam</button>
+
+            <button type="submit" name="action" value="schedule_exam">Schedule a new exam</button>
+            
+            <button type="submit" name="action" value="view_exams">View previous exams</button>
+            
+            <button type="submit" name="action" value="view_scorecard">View student scorecard</button>
         </form>
+        
     </div>
     
 </body>
@@ -51,4 +55,16 @@
     div{
     --border: red 2px solid;
     }
+
+    @media (max-width: 768px) {
+    h1 {
+        font-size: 30px;
+        margin-left: 10%;
+    }
+    button {
+        font-size: 20px;
+        height: 60px;
+    }
+}
+
 </style>
