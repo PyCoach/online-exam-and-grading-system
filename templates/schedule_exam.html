@@ -1,13 +1,160 @@
-<h1>Schedule Exam</h1>
-<form method="post">
-    <label for="exam_name">Exam Name:</label>
-    <input type="text" id="exam_name" name="exam_name" required><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Exam</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+            color: #495057;
+        }
+        select,
+        input[type="date"],
+        input[type="time"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .success-message {
+            color: green;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .home-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .home-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule Exam</h1>
 
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date" required><br>
+        {% if message %}
+            <p style="color: red; font-size: 20px; text-align: center;">{{ message }}</p>
+        {% endif %}
 
-    <label for="time">Date:</label>
-    <input type="time" id="time" name="time" required><br>
+        {% if success_message %}
+            <p class="success-message">{{ success_message }}</p>
+            <!-- Show button to go to Teacher Interface -->
+            <form method="POST" action="/go_to_teacher_interface">
+                <input type="submit" value="Go to Teacher Interface">
+            </form>
+        {% else %}
 
-    <button type="submit">Schedule</button>
-</form>
+            <!-- Select Exam Form -->
+            {% if not selected_exam %}
+            <form method="POST" action="/schedule_exam">
+                <label for="exam_name">Select Exam:</label>
+                <select id="exam_name" name="exam_name">
+                    <option value="">Select Exam</option>
+                    {% for exam in exam_names %}
+                        <option value="{{ exam }}" {% if exam == selected_exam %}selected{% endif %}>{{ exam }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Submit Exam Selection">
+            </form>
+            {% endif %}
+
+            <!-- Select Class Form -->
+            {% if selected_exam and not selected_class %}
+            <form method="POST" action="/schedule_exam">
+                <input type="hidden" name="exam_name" value="{{ selected_exam }}">
+                <label for="class_name">Select Class:</label>
+                <select id="class_name" name="class_name">
+                    <option value="">Select Class</option>
+                    {% for class_name in class_names %}
+                        <option value="{{ class_name }}" {% if class_name == selected_class %}selected{% endif %}>{{ class_name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Submit Class Selection">
+            </form>
+            {% endif %}
+
+            <!-- Full Form for Scheduling Exam -->
+            {% if selected_exam and selected_class %}
+            <form method="POST" action="/schedule_exam">
+                <input type="hidden" name="exam_name" value="{{ selected_exam }}">
+                <input type="hidden" name="class_name" value="{{ selected_class }}">
+
+                <label for="subject_name">Select Subject:</label>
+                <select id="subject_name" name="subject_name">
+                    <option value="">Select Subject</option>
+                    {% for subject in subjects %}
+                        <option value="{{ subject }}">{{ subject }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="scheduled_date">Scheduled Date:</label>
+                <input type="date" id="scheduled_date" name="scheduled_date" required>
+
+                <label for="start_time">Start time:</label>
+                <input type="time" id="start_time" name="start_time" required>
+
+                <label for="duration">Duration (in minutes):</label>
+                <input type="number" id="duration" name="duration" min="1" required>
+
+                <input type="submit" value="Schedule Exam">
+            </form>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

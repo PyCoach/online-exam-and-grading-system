@@ -4,67 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UI Interface</title>
+    <style>
+        body {
+            background-color: rgb(221, 200, 200);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            font-size: 48px;
+            text-align: center;
+            color: rgb(50, 50, 50);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        button {
+            height: 60px;
+            width: 80%;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            background: linear-gradient(to right, rgb(196, 72, 161), rgb(113, 17, 97));
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            button {
+                font-size: 16px;
+                height: 50px;
+            }
+        }
+    </style>
 </head>
-<body style="background-color: rgb(221, 200, 200);">
-    
-    <h1>Hello {{name}}<br>
-    What would You like to do?</h1>
-    
-    <div>
+<body>
+    <div class="container">
+        <h1>Hello {{name}}<br>What would you like to do?</h1>
         <form action="/process_teacher_action" method="POST">
-            <button type="submit" name="action" value="create_exam">Create a new exam</button>
-
-            <button type="submit" name="action" value="schedule_exam">Schedule a new exam</button>
-            
-            <button type="submit" name="action" value="view_exams">View previous exams</button>
-            
-            <button type="submit" name="action" value="view_scorecard">View student scorecard</button>
+            <button type="submit" name="action" value="create_exam">Create a New Exam</button>
+            <button type="submit" name="action" value="schedule_exam">Schedule a New Exam</button>
+            <button type="submit" name="action" value="view_exams">View Previous Exams</button>
+            <button type="submit" name="action" value="view_scorecard">View Student Scorecard</button>
         </form>
-        
     </div>
-    
 </body>
 </html>
-<style>
-    h1{
-        font-size: 50px;
-        margin-top: 15vh;
-        margin-left: 20%;
-        text-shadow: 0 0 30px rgb(0, 0, 0);
-
-    }
-    button{
-        height: 80px;
-        width: 90%;
-        border-radius: 10px;
-        color: white;
-        background-color: rgb(196, 72, 161);
-        margin-top: 5%;
-        font-size: 35px;
-        font-family:Arial, Helvetica, sans-serif
-    }
-    button:hover{
-        background-color: rgb(113, 17, 97);
-        box-shadow: 0 0 100px rgb(83, 185, 179);
-    }
-    form{
-        --border: black solid 1px;
-        font-size: 30px;
-        margin-left: 15.5%;
-    }
-    div{
-    --border: red 2px solid;
-    }
-
-    @media (max-width: 768px) {
-    h1 {
-        font-size: 30px;
-        margin-left: 10%;
-    }
-    button {
-        font-size: 20px;
-        height: 60px;
-    }
-}
-
-</style>

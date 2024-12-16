@@ -1,6 +1,96 @@
-<h1>Welcome, {{name}}</h1>
-<ul>
-    <li><a href="/give_exam">Give Exam</a></li>
-    <li><a href="/check_results">Check Results</a></li>
-    <li><a href="/submit_homework">Submit Homework</a></li>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{name}}</h1>
+        <ul>
+            <li><a href="/give_exam">📚 Give Exam</a></li>
+            <li><a href="/check_results">📊 Check Results</a></li>
+            <li><a href="/submit_homework">📝 Submit Homework</a></li>
+        </ul>
+    </div>
+</body>
+<style>
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .container {
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 90%;
+        max-width: 600px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 1em;
+        color: #ffd700;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    ul {
+        list-style: none;
+        margin: 20px 0;
+        padding: 0;
+    }
+
+    li {
+        margin: 15px 0;
+    }
+
+    a {
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1.2em;
+        color: #ffffff;
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        padding: 15px 25px;
+        border-radius: 25px;
+        width: 250px; /* Set fixed width for equal-sized buttons */
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    a:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2em;
+        }
+
+        a {
+            font-size: 1em;
+            padding: 10px 20px;
+            width: 100%; /* Ensure buttons are full width on small screens */
+        }
+    }
+</style>
+</html>

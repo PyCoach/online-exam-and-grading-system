@@ -68,7 +68,23 @@
 <body>
     <div class="container">
         <h1>Enter Questions</h1>
-        <form action="/submit" method="POST">
+        <form action="/add_questions" method="POST">
+            <!-- Exam ID Input -->
+            <div>
+                <label for="exam_name">Exam name:</label>
+                <input type="text" id="exam_name" name="exam_name" placeholder="Enter Exam name" required>
+            </div>
+
+            <!-- Subject Input -->
+            <div>
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" placeholder="Enter Subject" required>
+            </div>
+            <div>
+                <label for="class_name">For class:</label>
+                <input type="text" id="class_name" name="class_name" placeholder="Class" required>
+            </div>
+
             <!-- MCQ Questions -->
             {% for i in range(1, mcq_count + 1) %}
             <div class="question_block">
@@ -76,17 +92,17 @@
                 <input type="text" id="mcq{{ i }}" name="mcq{{ i }}" placeholder="Enter MCQ {{ i }}" required>
 
                 <label>Options:</label>
-                <input type="text" name="mcq{{ i }}_option1" placeholder="Option 1" required>
-                <input type="text" name="mcq{{ i }}_option2" placeholder="Option 2" required>
-                <input type="text" name="mcq{{ i }}_option3" placeholder="Option 3" required>
-                <input type="text" name="mcq{{ i }}_option4" placeholder="Option 4" required>
+                <input type="text" name="mcq{{ i }}_option1" placeholder="Option A" required>
+                <input type="text" name="mcq{{ i }}_option2" placeholder="Option B" required>
+                <input type="text" name="mcq{{ i }}_option3" placeholder="Option C" required>
+                <input type="text" name="mcq{{ i }}_option4" placeholder="Option D" required>
 
                 <label for="mcq{{ i }}_answer">Correct Answer:</label>
                 <select id="mcq{{ i }}_answer" name="mcq{{ i }}_answer" required>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                    <option value="4">Option 4</option>
+                    <option value="A">Option A</option>
+                    <option value="B">Option B</option>
+                    <option value="C">Option C</option>
+                    <option value="D">Option D</option>
                 </select>
             </div>
             {% endfor %}

@@ -73,13 +73,16 @@ class Database:
         
         
         query_student = "SELECT password FROM registered_students WHERE id = %s"
+        print('executing student query')
         self.cursor.execute(query_student, (id,))
         result_student = self.cursor.fetchone()
+        print(result_student)
         
 
         # Check if the student exists and verify the password
         if result_student:
             stored_password = result_student[0]
+            print(stored_password)
             
             if stored_password == password:
                 # fetching name of student
@@ -87,25 +90,101 @@ class Database:
                 self.cursor.execute(query_name,(id,))
                 name= self.cursor.fetchone()[0]
 
+                print(True,"student",name)
                 return True ,"student",name
-
 
         #checking if teacher exist
         query_teacher = "SELECT password FROM teachers WHERE id = %s"
+        print('teacher login query')
         self.cursor.execute(query_teacher, (id,))
         result_teacher = self.cursor.fetchone()
-        
+        print(result_teacher)
 
         if result_teacher:
             stored_password = result_teacher[0]
+            print(stored_password)
+            print(password)
             
             if stored_password == password:
                 query_name="SELECT name FROM project.teachers where id=%s"
                 self.cursor.execute(query_name,(id,))
                 name= self.cursor.fetchone()[0]
+                print(True,"teacher",name)
                 return True,"teacher",name
             
-        return False
+        return False,None,None
+
+
+    def insert_question(self, exam_name,subject, class_name, question_text, question_type, options=None, correct_answer=None, marks=0):
+        try:
+            query = """
+            INSERT INTO questions (exam_name,subject,class_name, question_text, question_type, options, correct_answer, marks)
+            VALUES (%s, %s, %s, %s, %s, %s,%s,%s)
+            """
+            # Execute the query
+            self.cursor.execute(query, (exam_name,subject,class_name, question_text, question_type, options, correct_answer, marks))
+            self.connection.commit()
+            
+        except Exception as e:
+            print(f"Error inserting question: {e}")
+              # Rollback in case of an error
+
+    def insert_exam_schedule(self,exam_name, subject_name,class_name, scheduled_date, start_time, duration, teacher_id):
+        try:
+            query = """
+            INSERT INTO exams
+             (exam_name, subject,class_name, scheduled_date, start_time, duration, teacher_id)
+            VALUES (%s, %s, %s,%s, %s, %s, %s)
+            """
+            values = (exam_name, subject_name,class_name, scheduled_date, start_time, duration, teacher_id)
+            self.cursor.execute(query, values)
+            self.connection.commit()
+            print('something')
+        except Exception as e:
+            return f"Error scheduling exam: {e}"
+
+        return "Exam scheduled successfully!"
+
+    def fetch_exams(self):
+        """
+        Fetch all exam names from the quotients table.
+        Returns: List of tuples with exam names.
+        """
+        query = "SELECT  distinct (exam_name) FROM questions"
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
+    def fetch_subjects_by_class(self, exam_name,class_names):
+        """
+        Fetch subjects associated with a given exam.
+        Args:
+            exam_name (str): The name of the exam.
+        Returns: List of subject names.
+        """
+        query = """
+            SELECT distinct(subject)
+            FROM questions
+            WHERE exam_name = %s and class_name=%s
+        """
+        self.cursor.execute(query, (exam_name,class_names))
+        return [row[0] for row in self.cursor.fetchall()]
+
+    def fetch_class_names_by_exam(self, exam_name):
+        
+        query = """
+            SELECT DISTINCT class_name
+            FROM questions
+            WHERE exam_name = %s
+        """
+        self.cursor.execute(query, (exam_name,))
+        return [row[0] for row in self.cursor.fetchall()]
+
+    def fetch_scheduled_exams(self):
+        query="select * from exams"
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
+
 
 
 
