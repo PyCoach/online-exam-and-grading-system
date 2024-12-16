@@ -1,27 +1,31 @@
-"adm_no","name","email","dob","gender","address","phone_no"
-"STL1234","Aditya","aditya123@gmail.com","2005-03-14","Male","Rajeev Nagar, Haldwani, Uttarakhand",9876543210
-"STL5678","Ananya","ananya456@gmail.com","2003-07-22","Female","Shivalik Colony, Haldwani, Uttarakhand",9987654321
-"STL9101","Arjun","arjun789@gmail.com","2006-11-03","Non-binary","Ramnagar Road, Haldwani, Uttarakhand",9123456789
-"STL2345","Kavya","kavya101@gmail.com","2004-01-18","Genderqueer","Railway Road, Haldwani, Uttarakhand",9345678901
-"STL5670","Raj","raj1234@gmail.com","2002-04-29","Transgender Male","Galla Mandi, Haldwani, Uttarakhand",9501234567
-"STL8901","Priya","priya5678@gmail.com","2005-10-12","Transgender Female","Nainital Road, Haldwani, Uttarakhand",9678901234
-"STL6789","Aman","aman9876@gmail.com","2007-02-25","Agender","Bhawani Garden, Haldwani, Uttarakhand",9214567890
-"STL3456","Pooja","pooja4321@gmail.com","2004-08-09","Two-Spirit","Lakhanpur, Haldwani, Uttarakhand",9321054321
-"STL7890","Abhinav","abhinav1122@gmail.com","2003-12-05","Genderfluid","Khatima Road, Haldwani, Uttarakhand",9635274109
-"STL8902","Mia","mia6543@gmail.com","2006-06-30","Bigender","Banbhoolpura, Haldwani, Uttarakhand",9786345012
-"STL1235","Amit","amit7890@gmail.com","2004-05-11","Male","Haldwani, Uttarakhand",9501234568
-"STL6781","Neha","neha2112@gmail.com","2005-12-13","Female","Almora, Uttarakhand",9678901235
-"STL2346","Rohit","rohit2015@gmail.com","2003-09-15","Male","Rudrapur, Uttarakhand",9656789012
-"STL3459","Shruti","shruti3421@gmail.com","2006-07-17","Female","Kaladhungi, Uttarakhand",9543216789
-"STL5671","Vikram","vikram1987@gmail.com","2002-08-25","Male","Bhimtal, Uttarakhand",9214785632
-"STL1239","Radhika","radhika3201@gmail.com","2004-04-02","Female","Rudrapur, Uttarakhand",9225364789
-"STL7893","Harshit","harshit987@gmail.com","2005-02-11","Male","Haldwani, Uttarakhand",9876543211
-"STL4561","Tanuja","tanuja562@gmail.com","2007-11-18","Female","Bhimtal, Uttarakhand",9364752901
-"STL7892","Manish","manish7823@gmail.com","2006-03-01","Male","Haldwani, Uttarakhand",9678901222
-"STL3452","Sakshi","sakshi2341@gmail.com","2004-02-16","Female","Nainital, Uttarakhand",9532789145
-"STL5676","Sumit","sumit876@gmail.com","2005-08-04","Male","Haldwani, Uttarakhand",9546783210
-"STL1236","Priya","priya2009@gmail.com","2006-12-21","Female","Rudrapur, Uttarakhand",9218765432
-"STL7898","Amit","amit5912@gmail.com","2005-05-14","Male","Almora, Uttarakhand",9356178921
-"STL6782","Riya","riya7121@gmail.com","2007-09-10","Female","Haldwani, Uttarakhand",9221654789
-"STL3458","Ankit","ankit6543@gmail.com","2004-12-01","Male","Rudrapur, Uttarakhand",9123125643
-"STL5679","Parth","parth8542@gmail.com","2006-06-04","Male","Kaladhungi, Uttarakhand",9556214378
+"student_id";"name";"class_name";"email";"dob";"address";"phone_no"
+"ST0001";"Arjun Sharma";"10";"arjun.sharma@gmail.com";"2007-05-12";"45, Laxmi Bazar, Haldwani";"9876543210"
+"ST0002";"Priya Reddy";"12";"priya.reddy@yahoo.com";"2005-10-22";"12, Kathgodam, Haldwani";"9845123456"
+"ST0003";"Rahul Patil";"11";"rahul.patil@outlook.com";"2006-08-19";"23, Kusumkhera, Haldwani";"9822011122"
+"ST0004";"Ananya Iyer";"9";"ananya.iyer@gmail.com";"2008-02-05";"67, Rampur Road, Haldwani";"9988776655"
+"ST0005";"Kunal Mehta";"12";"kunal.mehta@mail.com";"2005-12-15";"56, Tikonia, Haldwani";"9812345678"
+"ST0006";"Sneha Gupta";"10";"sneha.gupta@gmail.com";"2007-03-11";"78, Subhash Nagar, Haldwani";"9001234567"
+"ST0007";"Vikram Singh";"11";"vikram.singh@yahoo.com";"2006-06-15";"21, Mukhani, Haldwani";"9811223344"
+"ST0008";"Neha Verma";"9";"neha.verma@mail.com";"2008-08-23";"33, Kamluaganja, Haldwani";"9876547890"
+"ST0009";"Aakash Nair";"12";"aakash.nair@outlook.com";"2005-07-09";"77, Nawabi Road, Haldwani";"9090909090"
+"ST0010";"Isha Joshi";"10";"isha.joshi@gmail.com";"2007-01-01";"89, Gaulapar, Haldwani";"9911223344"
+"ST0011";"Devansh Rao";"11";"devansh.rao@yahoo.com";"2006-04-18";"90, Nainital Road, Haldwani";"9871234560"
+"ST0012";"Riya Saxena";"12";"riya.saxena@mail.com";"2005-09-05";"11, Rajpura, Haldwani";"9008765432"
+"ST0013";"Tarun Kumar";"9";"tarun.kumar@gmail.com";"2008-12-30";"25, HMT, Haldwani";"9823421222"
+"ST0014";"Divya Pillai";"10";"divya.pillai@outlook.com";"2007-02-22";"46, Indira Nagar, Haldwani";"9911122233"
+"ST0015";"Sarthak Kapoor";"12";"sarthak.kapoor@mail.com";"2005-06-08";"56, Arya Nagar, Haldwani";"9933221100"
+"ST0016";"Anjali Rajput";"11";"anjali.rajput@gmail.com";"2006-07-15";"99, Keshav Vihar, Haldwani";"9444443333"
+"ST0017";"Yash Thakur";"10";"yash.thakur@outlook.com";"2007-03-10";"12, Shastri Nagar, Haldwani";"9765543322"
+"ST0018";"Shruti Banerjee";"12";"shruti.banerjee@gmail.com";"2005-08-11";"23, Bhawanipur, Haldwani";"8899121212"
+"ST0019";"Kabir Dutta";"11";"kabir.dutta@yahoo.com";"2006-09-19";"45, Kaladhungi Road, Haldwani";"9811112233"
+"ST0020";"Pooja Rathi";"9";"pooja.rathi@mail.com";"2008-04-01";"56, Dev Nagar, Haldwani";"9098123456"
+"ST0021";"Aryan Malhotra";"12";"aryan.malhotra@gmail.com";"2005-03-14";"67, Durga Colony, Haldwani";"9872233344"
+"ST0022";"Ishaan Menon";"10";"ishaan.menon@outlook.com";"2007-11-25";"78, Bhotia Parao, Haldwani";"9445512233"
+"ST0023";"Meera Desai";"11";"meera.desai@yahoo.com";"2006-02-28";"89, Budh Bazar, Haldwani";"9911225555"
+"ST0024";"Akshay Khanna";"9";"akshay.khanna@mail.com";"2008-10-10";"90, Jawahar Nagar, Haldwani";"9988771234"
+"ST0025";"Tanya Sinha";"12";"tanya.sinha@gmail.com";"2005-04-20";"23, Banbhoolpura, Haldwani";"9812348800"
+"ST0026";"Vivek Jain";"10";"vivek.jain@yahoo.com";"2007-06-13";"44, Kisan Market, Haldwani";"8822113344"
+"ST0027";"Kriti Goel";"11";"kriti.goel@mail.com";"2006-07-17";"55, Bareilly Road, Haldwani";"9879982211"
+"ST0028";"Ankur Chatterjee";"12";"ankur.chat@gmail.com";"2005-05-08";"66, Bhujia Ghat, Haldwani";"9711223344"
+"ST0029";"Jiya Thomas";"9";"jiya.thomas@outlook.com";"2008-09-12";"77, Bhuna, Haldwani";"9445566778"
+"ST0030";"Aditya Shetty";"10";"aditya.shetty@gmail.com";"2007-10-07";"88, Vinayak Colony, Haldwani";"9876651234"

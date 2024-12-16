@@ -1,20 +1,42 @@
-ques_id,ques,type,options,answers,marks,difficulty
-1,Who is known as Father of nation?,mcq,"Mahatma Gandhi, Jawarharlal nehru,S.C. Bose,none of these",Mahtma Gandhi,1,easy
-2,What was the primary objective of the Non-Cooperation Movement led by Mahatma Gandhi?,mcq,"Achieving complete independence,
-Boycotting British goods and institutions,
-Demanding civil rights for Indians,
-None of the above",Boycotting British goods and institutions,2,normal
-3,Explain the significance of Mahatma Gandhi's Salt March in 1930.,short,none,"The Salt March, or Dandi March, was a nonviolent protest against the British salt monopoly in India. Led by Mahatma Gandhi, it marked a significant moment in the Indian independence movement and demonstrated the power of nonviolent civil disobedience.",3,hard
-4,What was the primary objective of the Non-Cooperation Movement led by Mahatma Gandhi?,mcq,"Achieving complete independence
-Boycotting British goods and institutions
-Demanding civil rights for Indians
-None of the above",Boycotting British goods and institutions,2,hard
-5,Mahatma Gandhi advocated for complete nonviolence in both personal and political matters.,tf,"True,False",TRUE,1,easy
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
+"id";"exam_name";"subject";"class_name";"question_text";"question_type";"options";"correct_answer";"marks"
+0;"ut04";"science";"12";"what is my name?";"mcq";"dsddfds|dvs|vdsv|dv";"A";1
+0;"ut04";"science";"12";"dvcdsvsvdsvs";"short";"";"";1
+0;"ut04";"science";"12";"dvdsvfsvf";"long";"";"";1
+0;"ut04";"science";"12";"what is my name?";"mcq";"dsddfds|dvs|vdsv|dv";"A";1
+0;"ut04";"science";"12";"dvcdsvsvdsvs";"short";"";"";1
+0;"ut04";"science";"12";"dvdsvfsvf";"long";"";"";1
+0;"Midterm";"Physics";"12th";"What is the speed of light in vacuum?";"mcq";"3x10^8 m/s | 3x10^6 m/s | 3x10^5 m/s | None";"A";2
+0;"Final";"Physics";"12th";"What is the SI unit of force?";"mcq";"Newton | Pascal | Joule | Watt";"A";3
+0;"Unit Test 1";"Physics";"11th";"What does Ohm's Law state?";"long";"N/A";"V=IR";5
+0;"Quarterly";"Physics";"10th";"What is the unit of electrical resistance?";"mcq";"Ohm | Volt | Ampere | Joule";"A";2
+0;"Midterm";"Physics";"11th";"What is the acceleration due to gravity on Earth?";"mcq";"9.8 m/s^2 | 10 m/s^2 | 8.9 m/s^2 | 12 m/s^2";"A";3
+0;"Midterm";"Chemistry";"11th";"What is the pH of pure water?";"mcq";"6 | 7 | 8 | 9";"B";2
+0;"Final";"Chemistry";"12th";"What is Avogadro's number?";"mcq";"6.022x10^22 | 6.022x10^23 | 6.022x10^24 | None";"B";3
+0;"Unit Test 2";"Chemistry";"12th";"What is the formula of water?";"mcq";"H2O | CO2 | O2 | CH4";"A";2
+0;"Quarterly";"Chemistry";"11th";"Define molarity.";"long";"N/A";"Moles of solute per liter of solution";4
+0;"Midterm";"Chemistry";"12th";"What is the atomic number of carbon?";"mcq";"6 | 7 | 8 | 9";"A";2
+0;"Final";"Maths";"10th";"Solve: 2x + 3 = 7.";"mcq";"x=1 | x=2 | x=3 | x=4";"B";3
+0;"Quarterly";"Maths";"12th";"What is the derivative of x^2?";"mcq";"2x | x | x^3 | None";"A";4
+0;"Midterm";"Maths";"11th";"Find the integral of x dx.";"mcq";"x^2/2 + C | x^2 + C | ln(x) | None";"A";3
+0;"Unit Test 1";"Maths";"10th";"What is sin(90)?";"mcq";"0 | 1 | -1 | 2";"B";2
+0;"Final";"Maths";"11th";"What is the value of pi?";"mcq";"3.14 | 22/7 | Both | None";"C";2
+0;"Midterm";"Biology";"12th";"What is the powerhouse of the cell?";"mcq";"Nucleus | Ribosome | Mitochondria | Cytoplasm";"C";2
+0;"Quarterly";"Biology";"11th";"Which organ pumps blood in humans?";"mcq";"Lungs | Heart | Brain | Liver";"B";2
+0;"Unit Test 2";"Biology";"12th";"What is the function of hemoglobin?";"long";"N/A";"Transport oxygen in the blood";4
+0;"Final";"Biology";"11th";"Which part of the brain controls balance?";"mcq";"Cerebrum | Cerebellum | Medulla | Pons";"B";3
+0;"Midterm";"Biology";"11th";"Name the largest organ in the human body.";"mcq";"Brain | Liver | Skin | Heart";"C";2
+0;"Unit Test 1";"English";"10th";"Who wrote ""Romeo and Juliet""?";"mcq";"Milton | Shakespeare | Dickens | Wordsworth";"B";2
+0;"Quarterly";"English";"12th";"Identify the figure of speech: ""The world is a stage.""";"mcq";"Simile | Metaphor | Hyperbole | Personification";"B";2
+0;"Final";"English";"11th";"What is a synonym for ""happy""?";"mcq";"Sad | Joyful | Angry | Tired";"B";2
+0;"Midterm";"English";"12th";"Which word means ""the opposite of love""?";"mcq";"Anger | Hate | Joy | Fear";"B";2
+0;"Unit Test 2";"English";"10th";"What is the plural of ""child""?";"mcq";"Childs | Childen | Children | Child's";"C";2
+0;"Midterm";"GK";"10th";"What is the capital of France?";"mcq";"Berlin | Madrid | Paris | Rome";"C";2
+0;"Quarterly";"GK";"12th";"Which is the largest planet in the solar system?";"mcq";"Earth | Jupiter | Saturn | Mars";"B";3
+0;"Unit Test 1";"GK";"11th";"Who is the current Prime Minister of India?";"mcq";"Narendra Modi | Rahul Gandhi | Manmohan Singh | Amit Shah";"A";2
+0;"Final";"GK";"10th";"How many continents are there on Earth?";"mcq";"5 | 6 | 7 | 8";"C";2
+0;"Midterm";"GK";"11th";"What is the national animal of India?";"mcq";"Elephant | Lion | Tiger | Peacock";"C";2
+0;"Unit Test 2";"Physics";"10th";"What is the value of g on Moon?";"mcq";"1.6 m/s^2 | 9.8 m/s^2 | 3.6 m/s^2 | None";"A";3
+0;"Final";"Chemistry";"11th";"What is the boiling point of water?";"mcq";"50°C | 100°C | 150°C | 200°C";"B";2
+0;"Midterm";"Biology";"10th";"What is photosynthesis?";"long";"N/A";"Process by which plants make food using sunlight";4
+0;"Quarterly";"Maths";"11th";"What is the square root of 64?";"mcq";"6 | 7 | 8 | 9";"C";2
+0;"Unit Test 1";"English";"12th";"What is the antonym of ""strong""?";"mcq";"Weak | Bold | Mighty | Powerful";"A";2
