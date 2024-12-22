@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exam Result</h1>
+        <p>Subject: {{ subject }}</p>
+        <p>Class: {{ class_name }}</p>
+        <p class="score">Your Score: {{ score }} / {{  total_marks }}</p>
+        <a href="/student/dashboard" class="back-btn">Go Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -39,7 +39,7 @@
         select,
         input[type="date"],
         input[type="time"],
-        input[type="number"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             font-size: 14px;
@@ -57,7 +57,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
         input[type="submit"]:hover {
             background-color: #0056b3;
@@ -87,74 +86,73 @@
     <div class="container">
         <h1>Schedule Exam</h1>
 
-        {% if message %}
-            <p style="color: red; font-size: 20px; text-align: center;">{{ message }}</p>
-        {% endif %}
+        <form method="POST">
+            <!-- Exam Dropdown -->
+            <label for="exam_name">Select Exam:</label>
+            <select name="exam_name" id="exam_name" onchange="this.form.submit()">
+                <option value="">--Select Exam--</option>
+                {% for exam in exam_names %}
+                    <option value="{{ exam }}" {% if selected_exam == exam %}selected{% endif %}>
+                        {{ exam }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <!-- Class Dropdown -->
+            <label for="class_name">Select Class:</label>
+            <select name="class_name" id="class_name" onchange="this.form.submit()" {% if not class_names %}disabled{% endif %}>
+                <option value="">--Select Class--</option>
+                {% for class_name in class_names %}
+                    <option value="{{ class_name }}" {% if selected_class == class_name %}selected{% endif %}>
+                        {{ class_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <!-- Subject Dropdown -->
+            <label for="subject_name">Select Subject:</label>
+            <select name="subject_name" id="subject_name" onchange="this.form.submit()" {% if not subjects %}disabled{% endif %}>
+                <option value="">--Select Subject--</option>
+                {% for subject in subjects %}
+                    <option value="{{ subject }}" {% if selected_subject == subject %}selected{% endif %}>
+                        {{ subject }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <!-- Exam ID Dropdown -->
+            <!-- Exam ID Dropdown -->
+            <label for="exam_id">Select Exam ID:</label>
+            <select name="exam_id" id="exam_id" {% if not filtered_exam_ids %}disabled{% endif %}>
+                <option value="">--Select Exam ID--</option>
+                {% for exam_id in filtered_exam_ids %}
+                    <option value="{{ exam_id }}" {% if selected_exam_id == exam_id %}selected{% endif %}>
+                        {{ exam_id }}
+                    </option>
+                {% endfor %}
+            </select>
 
-        {% if success_message %}
-            <p class="success-message">{{ success_message }}</p>
-            <!-- Show button to go to Teacher Interface -->
-            <form method="POST" action="/go_to_teacher_interface">
-                <input type="submit" value="Go to Teacher Interface">
-            </form>
-        {% else %}
-
-            <!-- Select Exam Form -->
-            {% if not selected_exam %}
-            <form method="POST" action="/schedule_exam">
-                <label for="exam_name">Select Exam:</label>
-                <select id="exam_name" name="exam_name">
-                    <option value="">Select Exam</option>
-                    {% for exam in exam_names %}
-                        <option value="{{ exam }}" {% if exam == selected_exam %}selected{% endif %}>{{ exam }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" value="Submit Exam Selection">
-            </form>
+            <!-- Other Fields -->
+            <label for="scheduled_date">Scheduled Date:</label>
+            <input type="date" name="scheduled_date" id="scheduled_date">
+        
+            <label for="start_time">Start Time:</label>
+            <input type="time" name="start_time" id="start_time">
+        
+            <label for="duration">Duration:</label>
+            <input type="text" name="duration" id="duration">
+        
+            <!-- Submit Button -->
+            <input type="submit" name="submit_schedule" value="Schedule Exam">
+        
+            <!-- Error or Success Messages -->
+            {% if message %}
+                <p style="color: red;">{{ message }}</p>
             {% endif %}
-
-            <!-- Select Class Form -->
-            {% if selected_exam and not selected_class %}
-            <form method="POST" action="/schedule_exam">
-                <input type="hidden" name="exam_name" value="{{ selected_exam }}">
-                <label for="class_name">Select Class:</label>
-                <select id="class_name" name="class_name">
-                    <option value="">Select Class</option>
-                    {% for class_name in class_names %}
-                        <option value="{{ class_name }}" {% if class_name == selected_class %}selected{% endif %}>{{ class_name }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" value="Submit Class Selection">
-            </form>
+            {% if success_message %}
+                <p style="color: green;">{{ success_message }}</p>
             {% endif %}
-
-            <!-- Full Form for Scheduling Exam -->
-            {% if selected_exam and selected_class %}
-            <form method="POST" action="/schedule_exam">
-                <input type="hidden" name="exam_name" value="{{ selected_exam }}">
-                <input type="hidden" name="class_name" value="{{ selected_class }}">
-
-                <label for="subject_name">Select Subject:</label>
-                <select id="subject_name" name="subject_name">
-                    <option value="">Select Subject</option>
-                    {% for subject in subjects %}
-                        <option value="{{ subject }}">{{ subject }}</option>
-                    {% endfor %}
-                </select>
-
-                <label for="scheduled_date">Scheduled Date:</label>
-                <input type="date" id="scheduled_date" name="scheduled_date" required>
-
-                <label for="start_time">Start time:</label>
-                <input type="time" id="start_time" name="start_time" required>
-
-                <label for="duration">Duration (in minutes):</label>
-                <input type="number" id="duration" name="duration" min="1" required>
-
-                <input type="submit" value="Schedule Exam">
-            </form>
-            {% endif %}
-        {% endif %}
+        </form>
     </div>
 </body>
 </html>

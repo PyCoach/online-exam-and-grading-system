@@ -115,44 +115,46 @@ class Database:
         return False,None,None
 
 
-    def insert_question(self, exam_name,subject, class_name, question_text, question_type, options=None, correct_answer=None, marks=0):
+    def insert_question(self, exam_name,subject,exam_id, class_name, question_text, question_type, options=None, correct_answer=None, marks=0):
         try:
             query = """
-            INSERT INTO questions (exam_name,subject,class_name, question_text, question_type, options, correct_answer, marks)
-            VALUES (%s, %s, %s, %s, %s, %s,%s,%s)
+            INSERT INTO questions (id,exam_name,subject,class_name, question_text, question_type, options, correct_answer, marks)
+            VALUES (%s, %s, %s, %s, %s, %s,%s,%s,%s)
             """
             # Execute the query
-            self.cursor.execute(query, (exam_name,subject,class_name, question_text, question_type, options, correct_answer, marks))
+            self.cursor.execute(query, (exam_id,exam_name,subject,class_name, question_text, question_type, options, correct_answer, marks))
             self.connection.commit()
             
         except Exception as e:
             print(f"Error inserting question: {e}")
               # Rollback in case of an error
 
-    def insert_exam_schedule(self,exam_name, subject_name,class_name, scheduled_date, start_time, duration, teacher_id):
-        try:
-            query = """
-            INSERT INTO exams
-             (exam_name, subject,class_name, scheduled_date, start_time, duration, teacher_id)
-            VALUES (%s, %s, %s,%s, %s, %s, %s)
-            """
-            values = (exam_name, subject_name,class_name, scheduled_date, start_time, duration, teacher_id)
-            self.cursor.execute(query, values)
-            self.connection.commit()
-            print('something')
-        except Exception as e:
-            return f"Error scheduling exam: {e}"
+    def insert_exam_schedule(self,exam_id,exam_name, subject_name,class_name, scheduled_date, start_time, duration, teacher_id):
+        
+
+            
+        query = """
+        INSERT INTO exams
+            (exam_id,exam_name, subject,class_name, scheduled_date, start_time, duration, teacher_id)
+        VALUES (%s, %s, %s,%s, %s, %s, %s,%s)
+        """
+        print('crgrsgfrwfr')
+        values = (exam_id,exam_name, subject_name,class_name, scheduled_date, start_time, duration, teacher_id)
+        print(values)
+        print('fgtgrgfr')
+        self.cursor.execute(query, values)
+        
+        self.connection.commit()
+        print('something')
+        
 
         return "Exam scheduled successfully!"
 
     def fetch_exams(self):
-        """
-        Fetch all exam names from the quotients table.
-        Returns: List of tuples with exam names.
-        """
-        query = "SELECT  distinct (exam_name) FROM questions"
+        query = "SELECT distinct exam_name,id FROM questions"  # Replace with actual table/column names
         self.cursor.execute(query)
         return self.cursor.fetchall()
+
 
     def fetch_subjects_by_class(self, exam_name,class_names):
         """
@@ -186,7 +188,52 @@ class Database:
 
 
 
+    
+
+    def fetch_exams_by_class(self, class_name):
+        """
+        Fetch exams filtered by class name.
+        """
+        query = """
+            SELECT exam_id, exam_name, subject, scheduled_date, start_time, duration,class_name
+            FROM exams
+            WHERE trim("th" from class_name) = %s
+        """
+        self.cursor.execute(query, class_name)
+        return self.cursor.fetchall()
+    
+    def fetch_exam_id_by_subjects(self,subject,class_name,exam_name):
+        query="""select distinct(id) from questions where exam_name=%s and subject=%s and class_name=%s"""
+        self.cursor.execute(query,(exam_name,subject,class_name))   
+        return self.cursor.fetchall()
+
+    def fetch_class_by_student_id(self,student_id):
+        query_class = """
+        SELECT class_name FROM students
+        RIGHT JOIN registered_students ON students.student_id = registered_students.student_id
+        WHERE registered_students.id = %s
+        """
+        self.cursor.execute(query_class,(student_id,))
+        return self.cursor.fetchone()
+
+    def fetch_exam_questions_for_student(self,exam_id,subject,class_name):
+        query=""" select question_text,question_type,options,correct_answer,marks from questions where id=%s and subject=%s and class_name=%s"""
+        self.cursor.execute(query,(exam_id,subject,class_name))
+        return self.cursor.fetchall()
 
 
+    def store_student_responses(self, responses):
+        query = """
+        INSERT INTO student_responses (student_id, exam_id, question_id, response, marks_awarded, is_checked)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        self.cursor.executemany(query, responses)  # Use executemany to insert multiple rows at once
+        self.connection.commit()
 
-
+    def save_exam_result(self, student_id, exam_id, subject, class_name, marks_obtained, total_marks):
+        query = """
+            INSERT INTO exam_results (student_id, exam_id, subject, class_name, marks_obtained, total_marks)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        self.cursor.execute(query, (student_id, exam_id, subject, class_name, marks_obtained, total_marks))
+        self.connection.commit()

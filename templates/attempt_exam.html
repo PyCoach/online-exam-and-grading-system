@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attempt Exam</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .message {
+            text-align: center;
+            color: red;
+            font-size: 18px;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .question p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .options label {
+            display: block;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Attempt Exam</h1>
+
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% else %}
+        <form action="/submit_exam/{{ exam_id }}?subject={{subject}}&class_name={{class_name}}" method="POST">
+            <!-- Hidden inputs to store subject and class_name -->
+            <input type="hidden" name="subject" value="{{ subject }}">
+            <input type="hidden" name="class_name" value="{{ class_name }}">
+        
+            {% for question in questions %}
+                <div class="question">
+                    <p><strong>{{ loop.index }}. {{ question[0] }}</strong></p> <!-- Question Text -->
+                    <div class="options">
+                        {% if question[1] == 'mcq' %}
+                            <!-- For MCQ questions, render radio buttons for each option -->
+                            {% for option in question[2].split('|') %}
+                                <label>
+                                    <input type="radio" name="question_{{ question[4] }}_{{ loop.index }}" value="{{ option }}">
+                                    {{ option }}
+                                </label><br>
+                            {% endfor %}
+                        {% elif question[1] == 'short' %}
+                            <!-- For Short answer questions -->
+                            <textarea name="question_{{ question[4] }}_{{ loop.index }}" rows="4" cols="50" placeholder="Type your answer here..."></textarea>
+                        {% elif question[1] == 'long' %}
+                            <!-- For Long answer questions -->
+                            <textarea name="question_{{ question[4] }}_{{ loop.index }}" rows="6" cols="50" placeholder="Type your answer here..."></textarea>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        
+            <button type="submit" class="submit-btn">Submit Exam</button>
+        </form>
+        
+        {% endif %}
+    </div>
+
+</body>
+</html>
