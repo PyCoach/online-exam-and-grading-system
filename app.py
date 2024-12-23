@@ -60,7 +60,11 @@ def process_teacher_action():
         return redirect('/show_all_exams')
     elif action == 'view_scorecard':
         return "Redirect to view scorecard page"
-    return "Invalid action"
+    
+    elif action=='check_student_answers':
+        return redirect('/check_student_answers')
+    else:
+        return "Invalid action"
 
 @app.route('/create_question_paper',methods=['post'])
 def create_question_paper():
@@ -320,23 +324,22 @@ def submit_exam(exam_id):
     # Retrieve subject and class_name from the form
     subject = request.args.get('subject')
     class_name = request.args.get('class_name')
+    print("resquest.form", request.form)
     print("Subject:", subject, "Class Name:", class_name, "Exam ID:", exam_id)
+    
     # Fetch all questions with correct answers
     questions = db.fetch_exam_questions_for_student(exam_id, subject, class_name)
+    print("Questions Fetched:", questions)
 
     # Create a dictionary for correct answers
     correct_answers = {question[0]: question[3] for question in questions}  # {question_text: correct_option}
     print("Correct Answers:", correct_answers)
+    
     # Fetch submitted answers from the form
     submitted_answers = {}
     for key, value in request.form.items():
-        print("key:", key, "value:", value)
-        if key.startswith("question_"):  # Identify submitted questions
-            question_id = key.split("_")[1]
-            print("question_id:", question_id)
-            question_text = next(q[0] for q in questions if str(q[4]) == question_id)
-            print("question_text:", question_text)  # Extract question text
-            submitted_answers[question_text] = value
+        if key not in ["subject", "class_name"]:  # Ensure it matches the expected input name
+            submitted_answers[key] = value  # Use question text as key
 
     print("Submitted Answers:", submitted_answers)
     print("Correct Answers:", correct_answers)
@@ -345,36 +348,50 @@ def submit_exam(exam_id):
     score = 0
     total_marks = sum(q[4] for q in questions if q[1] == 'mcq')
     student_responses = []
+    is_checked = False  # Set to True if the teacher checks the exam
+    n=0
     for question_text, correct_answer in correct_answers.items():
         response = submitted_answers.get(question_text)
-        print("-----------",)
         marks_awarded = 0
-        is_checked = False
-        if response == correct_answer:
+          # Always mark the question as checked, even if left empty
+        # Always mark the question as checked if it is an 'mcq' and attempted
+        is_checked = True if questions[n][1] == 'mcq' else False
+        maximum_marks=questions[n][4]
+        question_type=questions[n][1]
+        print("Is Checked:", is_checked)
+        if response == correct_answer and question_type=='mcq':
             marks_awarded = next(q[4] for q in questions if q[0] == question_text)  # Get marks
             score += marks_awarded  # Increment score for correct answers
-            is_checked = True  # MCQs are auto-checked
+
+        # Get question ID or any other identifier from the `questions` list
         question_id = next(q[4] for q in questions if q[0] == question_text)
-        student_responses.append((session['student_id'], exam_id, question_id, response, marks_awarded, is_checked))
-        print("---------------")
+        checkers = ['automated' if is_checked else 'manual'][0]
+        student_responses.append((session['student_id'], exam_id, question_id,question_text, response, marks_awarded,maximum_marks, is_checked, checkers))
+
         print("Response:", response, "Correct Answer:", correct_answer, "Marks Awarded:", marks_awarded)
-        print(student_responses)
-        print("---------------")
-    print(f"Score: {score}/{ total_marks}")
+        n+=1
+    print(f"MCQ Score: {score}/{total_marks}")
 
     # Save the result in the database
     student_id = session['student_id']
+
     db.store_student_responses(student_responses)
-    db.save_exam_result(session['student_id'], exam_id, subject, class_name, score, total_marks)
+    db.save_exam_result(student_id, exam_id, subject, class_name, score, total_marks)
 
     # Redirect to results page or confirmation
     return render_template(
         'exam_result.html',
         score=score,
-         total_marks= total_marks,
+        total_marks=total_marks,
         subject=subject,
         class_name=class_name
     )
+@app.route('/check_student_answers')
+def check_student_answers():
+    db = Database()
+    teacher_id=session['teacher_id']
+    student_responses=db.fetch_student_responses(teacher_id)
+    return render_template('check_student_answers.html',student_responses=student_responses)
 
 
 app.run(debug=True)

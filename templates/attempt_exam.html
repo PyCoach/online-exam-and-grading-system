@@ -81,37 +81,31 @@
         {% if message %}
             <p class="message">{{ message }}</p>
         {% else %}
-        <form action="/submit_exam/{{ exam_id }}?subject={{subject}}&class_name={{class_name}}" method="POST">
+        <form action="/submit_exam/{{ exam_id }}?subject={{ subject }}&class_name={{ class_name }}" method="POST">
             <!-- Hidden inputs to store subject and class_name -->
             <input type="hidden" name="subject" value="{{ subject }}">
             <input type="hidden" name="class_name" value="{{ class_name }}">
         
             {% for question in questions %}
-                <div class="question">
-                    <p><strong>{{ loop.index }}. {{ question[0] }}</strong></p> <!-- Question Text -->
-                    <div class="options">
-                        {% if question[1] == 'mcq' %}
-                            <!-- For MCQ questions, render radio buttons for each option -->
-                            {% for option in question[2].split('|') %}
-                                <label>
-                                    <input type="radio" name="question_{{ question[4] }}_{{ loop.index }}" value="{{ option }}">
-                                    {{ option }}
-                                </label><br>
-                            {% endfor %}
-                        {% elif question[1] == 'short' %}
-                            <!-- For Short answer questions -->
-                            <textarea name="question_{{ question[4] }}_{{ loop.index }}" rows="4" cols="50" placeholder="Type your answer here..."></textarea>
-                        {% elif question[1] == 'long' %}
-                            <!-- For Long answer questions -->
-                            <textarea name="question_{{ question[4] }}_{{ loop.index }}" rows="6" cols="50" placeholder="Type your answer here..."></textarea>
-                        {% endif %}
-                    </div>
+            <div class="question">
+                <p><strong>{{ loop.index }}. {{ question[0] }}</strong></p> <!-- Question Text -->
+                <div class="options">
+                    {% if question[1] == 'mcq' %}
+                        {% for option in question[2].split('|') %}
+                            <label>
+                                <input type="radio" name="{{ question[0] }}" value="{{ option }}">
+                                {{ option }}
+                            </label><br>
+                        {% endfor %}
+                    {% elif question[1] in ['short', 'long'] %}
+                        <textarea name="{{ question[0] }}" rows="4" cols="50" placeholder="Type your answer here..."></textarea>
+                    {% endif %}
                 </div>
+            </div>
             {% endfor %}
-        
+
             <button type="submit" class="submit-btn">Submit Exam</button>
         </form>
-        
         {% endif %}
     </div>
 

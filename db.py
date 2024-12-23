@@ -224,16 +224,21 @@ class Database:
 
     def store_student_responses(self, responses):
         query = """
-        INSERT INTO student_responses (student_id, exam_id, question_id, response, marks_awarded, is_checked)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        INSERT INTO student_responses (student_id, exam_id, question_id,question_text, response, marks_awarded,maximum_marks, is_checked,checkers)
+        VALUES (%s, %s, %s, %s, %s, %s,%s,%s,%s)
         """
         self.cursor.executemany(query, responses)  # Use executemany to insert multiple rows at once
         self.connection.commit()
 
     def save_exam_result(self, student_id, exam_id, subject, class_name, marks_obtained, total_marks):
         query = """
-            INSERT INTO exam_results (student_id, exam_id, subject, class_name, marks_obtained, total_marks)
+            INSERT INTO exam_results (student_id, exam_id, subject, class_name, marks_obtained,total_marks)
             VALUES (%s, %s, %s, %s, %s, %s)
         """
         self.cursor.execute(query, (student_id, exam_id, subject, class_name, marks_obtained, total_marks))
         self.connection.commit()
+    
+    def fetch_student_responses(self,class_name,subject):
+        query="""select student_id,exam_id,question_id,question_text,response,marks_awarded,maximum_marks,is_checked,checkers from student_responses where class_name=%s and subject=%s"""
+        self.cursor.execute(query,(class_name,subject))
+        return self.cursor.fetchall()
