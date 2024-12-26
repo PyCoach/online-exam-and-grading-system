@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Students</title>
+    <style>
+        /* Basic styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Styling for the container */
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        /* Styling for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        /* Styling for table headers and cells */
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        /* Styling for table headers */
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        /* Hover effect for table rows */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        /* Styling for buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        /* Hover effect for buttons */
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if message %}
+            <p style="font-size: 20px;">{{ message }}</p>
+                {% endif %}
+        <h1>Students</h1>
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <th>Action</th>
+            </tr>
+            <!-- Loop through the students and create a row for each student -->
+            {% for student in students %}
+            <tr>
+                <td>{{ student[1] }}</td> <!-- Display the student's name -->
+                <td>
+                    <!-- Form to check the student's answers -->
+                    <form action="/view_student_responses" method="GET">
+                        <input type="hidden" name="student_id" value="{{ student[0] }}"> <!-- Hidden input for student ID -->
+                        <input type="hidden" name="exam_id" value="{{ exam_id }}"> <!-- Hidden input for exam ID -->
+                        <input type="hidden" name="subject" value="{{ subject }}"> <!-- Hidden input for subject -->
+                        <input type="hidden" name="class_name" value="{{ class_name }}"> <!-- Hidden input for class name -->
+                        <button type="submit">Check Answers</button> <!-- Button to submit the form -->
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

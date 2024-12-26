@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .chart-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exam Details</h1>
+        <table>
+            <tr>
+                <th>Question</th>
+                <th>Your Answer</th>
+                <th>Correct Answer</th>
+                <th>Marks Awarded</th>
+                <th>Maximum Marks</th>
+            </tr>
+            {% for response in student_responses %}
+            <tr>
+                <td>{{ response[1] }}</td>
+                <td>{{ response[2] }}</td>
+                <td>{{ response[3] }}</td>
+                <td>{{ response[4] }}</td>
+                <td>{{ response[5] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="chart-container">
+            <h2>Performance Comparison</h2>
+            <img src="data:image/png;base64,{{ img_base64 }}" alt="Performance Comparison Chart">
+        </div>
+    </div>
+</body>
+</html>

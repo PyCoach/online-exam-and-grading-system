@@ -59,7 +59,8 @@ def process_teacher_action():
     elif action == 'view_exams':
         return redirect('/show_all_exams')
     elif action == 'view_scorecard':
-        return "Redirect to view scorecard page"
+        
+        return redirect('class_selector_for_teacher')
     
     elif action=='check_student_answers':
         return redirect('/check_student_answers')
@@ -365,8 +366,8 @@ def submit_exam(exam_id):
 
         # Get question ID or any other identifier from the `questions` list
         question_id = next(q[4] for q in questions if q[0] == question_text)
-        checkers = ['automated' if is_checked else 'manual'][0]
-        student_responses.append((session['student_id'], exam_id, question_id,question_text, response, marks_awarded,maximum_marks, is_checked, checkers))
+        checkers = ['automated' if is_checked else 'null'][0]
+        student_responses.append((session['student_id'], exam_id, question_text, response,correct_answer, marks_awarded,maximum_marks, is_checked, checkers,class_name,subject))
 
         print("Response:", response, "Correct Answer:", correct_answer, "Marks Awarded:", marks_awarded)
         n+=1
@@ -380,20 +381,178 @@ def submit_exam(exam_id):
 
     # Redirect to results page or confirmation
     return render_template(
-        'exam_result.html',
+        'mcq_result.html',
         score=score,
         total_marks=total_marks,
         subject=subject,
         class_name=class_name
     )
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 @app.route('/check_student_answers')
 def check_student_answers():
     db = Database()
-    teacher_id=session['teacher_id']
-    student_responses=db.fetch_student_responses(teacher_id)
-    return render_template('check_student_answers.html',student_responses=student_responses)
+    teacher_id = session['teacher_id']
+    # Fetch exams, subjects, and class names for the dropdowns from student_responses table
+    exams = db.fetch_exams_from_responses()
+    subjects = db.fetch_subjects_from_responses()
+    class_names = db.fetch_class_names_from_responses()
+    print('inside check_student_answers', exams, subjects, class_names)
+    return render_template('select_exam.html', exams=exams, subjects=subjects, class_names=class_names)
+
+@app.route('/select_exam', methods=['POST'])
+def select_exam():
+    db = Database()
+    exam_id = request.form.get('exam_id')
+    subject = request.form.get('subject')
+    class_name = request.form.get('class_name')
+    print('inside select_exam',exam_id,subject,class_name)
+    # Fetch students who have taken the selected exam
+    students = db.fetch_students_by_exam(exam_id, subject, class_name)
+    print('students:',students)
+    return render_template('list_students.html', students=students, exam_id=exam_id, subject=subject, class_name=class_name)
+
+@app.route('/view_student_responses', methods=['GET'])
+def view_student_responses():
+    db = Database()
+    student_id = request.args.get('student_id')
+    exam_id = request.args.get('exam_id')
+    subject = request.args.get('subject')
+    class_name = request.args.get('class_name')
+    print('inside view_student_responses',student_id,exam_id,subject,class_name)
+    # Fetch student responses that need to be checked
+    student_responses = db.fetch_student_responses_by_exam(student_id, exam_id)
+    print('student_responses:',student_responses)
+    return render_template('check_student_answers.html', student_responses=student_responses,student_id=student_id, exam_id=exam_id, subject=subject, class_name=class_name)    
 
 
-app.run(debug=True)
+
+@app.route('/submit_marks', methods=['POST'])
+def submit_marks():
+    db = Database()
+    student_id = request.form.get('student_id')
+    exam_id = request.form.get('exam_id')
+    print('inside submit_marks',student_id,exam_id)
+    # Iterate over the form data to get the marks for each question
+    marks_data = {}
+    maximum_marks = 0
+    for key, value in request.form.items():
+        print('key:',key,'value:',value)
+        if key.startswith('marks_'):
+            question_id = key.split('_')[1]
+            marks_data[question_id] = float(value)
+            print('marks_data:',marks_data,'question_id',question_id)
+        if key.startswith('maximum_marks'):
+            maximum_marks = float(value)
+            maximum_marks+=maximum_marks
+    print(marks_data.items())
+    marks_scored=sum(marks_data.values())
+    print('marks_scored:',marks_scored)
+    print('maximum_marks:',maximum_marks)
+    # Update the marks in the student_responses table
+    for question_id, marks in marks_data.items():
+        db.update_student_response_marks(student_id, session['teacher_id'], exam_id, question_id, marks)
+        print('inserted into datsbase suucesfully')
+    # total_answers=db.execute("select count(*) from student_responses ")[0]
+    # checked_student_answers=db.execute("select count(is_checked) from student_responses")[0]
+    # query=f"select question_id  from  student_responses where is_checked=0 and student_id='{session['student_id']}' and exam_id='{exam_id}'"
+    # count_unchecked=db.execute(query)
+    # print(count_unchecked)
+    # if not count_unchecked:
+    #     print("all answers are checked")
+    db.update_exam_result(student_id, exam_id,  marks_scored, maximum_marks)
+        
+    time.sleep(0.5)
+    message = "Marks submitted successfully!"
+    return redirect('/check_student_answers')  # Redirect to the teacher's dashboard or another appropriate page
+
+@app.route('/check_student_results',methods=['get','post'])
+def check_results():
+    db = Database()
+    if request.form.get('role') == 'teacher':
+        class_name=str(request.form.get('class_name'))
+        subject=str(request.form.get('subject'))
+        print('class_name:',class_name,subject)
+        results = db.fetch_exam_results_for_teacher(class_name)
+        print('results:',results)
+        return render_template('results.html',results=results)
+    results = db.fetch_exam_results_for_student(session['student_id'])
+    print('results:',results)
+    return render_template('results.html',results=results)
 
 
+@app.route('/class_selector_for_teacher')
+def class_selector_for_teacher():
+    db=Database()
+    class_names=db.fetch_class_names_for_results_for_teacher()
+    subjects=db.fetch_subjects_for_results_for_teacher()
+    return render_template('class_selector_for_teacher.html',class_names=class_names,subjects=subjects)
+
+@app.route('/view_exam_details', methods=['GET'])
+def view_exam_details():
+    import matplotlib.pyplot as plt
+    import io
+    import base64
+    db = Database()
+    student_id = session['student_id']
+    exam_id,subject,class_name=db.execute(f"select exam_id,subject,class_name from exam_results where student_id='{session['student_id']}'")[0]
+    # exam_id = request.args.get('exam_id')
+    # subject = request.args.get('subject')
+    # class_name = request.args.get('class_name')
+    
+    
+    # Fetch student responses for the exam
+    student_responses = db.fetch_student_responses_by_exam_for_analysis(student_id, exam_id)
+    print('student_responses:',student_responses,'-------------------------')
+    
+    # Fetch all responses for the exam for comparison
+    all_responses = db.fetch_all_responses_by_exam_for_analysis(exam_id, subject, class_name)
+    print('all_responses:',all_responses,'-------------------------')
+    
+    student_scores = [response[4] for response in student_responses]
+    all_scores = [response[3] for response in all_responses]
+    print('student_scores:',student_scores,'-------------------------')
+    print('all_scores:',all_scores,'-------------------------')
+    # Perform data analysis
+    # (Implement data analysis logic here)
+    average_score = sum(all_scores) / len(all_scores) if all_scores else 0
+    # Histogram of student's scores
+    fig, ax = plt.subplots(2, 2, figsize=(12, 12))
+    
+    
+    # Histogram of student's scores
+    ax[0, 0].hist(student_scores, bins=10, edgecolor='black', density=False)
+    ax[0, 0].set_title('Your Scores Distribution')
+    ax[0, 0].set_xlabel('Marks Awarded')
+    ax[0, 0].set_ylabel('Frequency')
+    
+    # Histogram of all students' scores
+    ax[0, 1].hist(all_scores, bins=10, edgecolor='black', density=False)
+    ax[0, 1].set_title('Other Students Scores Distribution')
+    ax[0, 1].set_xlabel('Marks Awarded')
+    ax[0, 1].set_ylabel('Frequency')
+    
+    # Bar chart comparing student's scores with average scores
+    ax[1, 0].bar(['Your Score', 'Average Score'], [sum(student_scores), average_score], color=['blue', 'orange'])
+    ax[1, 0].set_title('Your Score vs Average Score')
+    ax[1, 0].set_ylabel('Total Marks')
+    
+    # Box plot of all students' scores
+    ax[1, 1].boxplot(all_scores, vert=False)
+    ax[1, 1].set_title('Distribution of All Students Scores')
+    ax[1, 1].set_xlabel('Marks Awarded')
+    
+
+# Save the plot to a file
+    # Save the plot to a file
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+    buf.close()
+    return render_template('exam_result_details.html', student_responses=student_responses, all_responses=all_responses,img_base64=img_base64)
+
+
+app.run(host='0.0.0.0', port=5000,debug=True)

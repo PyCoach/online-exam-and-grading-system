@@ -12,10 +12,12 @@
         <form action="/submit_marks" method="post">
             {% for response in student_responses %}
             <div class="question">
-                <h3>Question: {{ response.question_text }}</h3>
-                <p>Student's Answer: {{ response.response }}</p>
-                <label for="marks_{{ response.question_id }}">Marks:</label>
-                <input type="number" id="marks_{{ response.question_id }}" name="marks_{{ response.question_id }}" min="0" max="{{ response.maximum_marks }}" required>
+                <h3>Question: {{ response[1] }}</h3>
+                <p>Student's Answer: {{ response[2] }}</p>
+                <p>maximum_marks:{{response[4]}}</p>
+                <label for="marks_{{ response[0] }}">Marks to give:</label>
+                <input type="number" id="marks_{{ response[0] }}" name="marks_{{ response[0] }}" min="0" max="{{ response[4] }}"  step="any" required>
+                <input type="hidden" name="maximum_marks{{response[0]}}" id="maximum_marks{{ response[0] }}" value="{{ response[4] }}">
             </div>
             {% endfor %}
             <input type="hidden" name="student_id" value="{{ student_id }}">
