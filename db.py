@@ -308,19 +308,23 @@ class Database:
     
     def fetch_exam_results_for_student(self, student_id):
         query = """
-        SELECT  exam_results.exam_id, exam_results.subject,exam_name,exams.class_name ,marks_obtained, total_marks,exam_results.result_date,is_complete
+        SELECT  exams.exam_id, exams.subject,exams.exam_name,exams.class_name ,marks_obtained, total_marks,exam_results.result_date,is_complete,students.name,
         FROM exam_results 
-        JOIN exams ON exam_results.exam_id = exams.exam_id
-        WHERE student_id = %s
+        join exams  on exams.exam_id=exam_results.exam_id 
+        JOIN registered_students  ON exam_results.student_id = registered_students.id
+        JOIN students  ON registered_students.student_id = students.student_id
+        where exam_results.student_id=%s
         """
         self.cursor.execute(query, (student_id,))
         return self.cursor.fetchall()
 
     def fetch_exam_results_for_teacher(self, class_name):
         query = """
-        SELECT  exam_results.exam_id, exam_results.subject,exam_name,exams.class_name ,marks_obtained, total_marks,exam_results.result_date,is_complete
+        SELECT  exams.exam_id, exams.subject,exams.exam_name,exams.class_name ,marks_obtained, total_marks,exam_results.result_date,is_complete,students.name
         FROM exam_results 
-        JOIN exams ON exam_results.exam_id = exams.exam_id
+        join exams  on exams.exam_id=exam_results.exam_id 
+        JOIN registered_students  ON exam_results.student_id = registered_students.id
+        JOIN students  ON registered_students.student_id = students.student_id
         WHERE exam_results.class_name=%s
         """
         self.cursor.execute(query, (class_name,))

@@ -66,9 +66,15 @@
         {% if message %}
             <p style="font-size: 20px;">{{ message }}</p>
                 {% endif %}
+
+        {%if not students%}
+        <h1>Nothing to check here </h1>
+        {%endif%}
+        {%if students%}
+        <tr>
         <h1>Students</h1>
         <table>
-            <tr>
+            
                 <th>Student Name</th>
                 <th>Action</th>
             </tr>
@@ -88,6 +94,8 @@
                 </td>
             </tr>
             {% endfor %}
+            {%endif%}
+            
         </table>
     </div>
 </body>

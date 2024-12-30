@@ -1,6 +1,7 @@
 from db import Database
 from flask import Flask, render_template, request,session,redirect
-import time
+from datetime import datetime, timedelta
+
 
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'  # Replace with a secure secret key
@@ -173,7 +174,7 @@ def add_questions():
                 exam_name=exam_name,
                 subject=subject,
                 exam_id=exam_id,
-                class_name=class_name,
+                class_name=class_name, 
                 question_text=question_text,
                 question_type="long",
                 marks=marks
@@ -189,7 +190,7 @@ def schedule_exam():
 
     # Fetch all exam names and IDs from the database
     exam_tuple = db.fetch_exams()  # Ensure this fetches (exam_name, exam_id)
-    exam_names = [exam[0] for exam in exam_tuple]  # Extract exam names
+    exam_names = {exam[0] for exam in exam_tuple}  # Extract exam names
     exam_ids = {exam[0]: exam[1] for exam in exam_tuple}  # Map exam_name to exam_id
 
     # Initialize variables
@@ -209,14 +210,14 @@ def schedule_exam():
 
         if selected_exam:
             # Fetch class names for the selected exam
-            class_names = db.fetch_class_names_by_exam(selected_exam)
+            class_names = {x for x in db.fetch_class_names_by_exam(selected_exam)}
 
             # Fetch the selected class from the form
             selected_class = request.form.get('class_name')
 
             if selected_class:
                 # Fetch subjects for the selected class
-                subjects = db.fetch_subjects_by_class(selected_exam, selected_class)
+                subjects = {x for x in db.fetch_subjects_by_class(selected_exam, selected_class)}
 
                 # Fetch the selected subject from the form
                 selected_subject = request.form.get('subject_name')
@@ -296,7 +297,17 @@ def show_exams_by_class():
     student_id=session['student_id']
     class_name= db.fetch_class_by_student_id(student_id)
     exams=db.fetch_exams_by_class(class_name)
-    return render_template('student_exams.html',exams=exams)
+    current_time = datetime.now()
+    processed_exams = []
+    for exam in exams:
+        exam_id, exam_name, subject, scheduled_date, start_time, duration, class_name = exam
+        start_datetime = datetime.strptime(f"{scheduled_date} {start_time}", "%Y-%m-%d %H:%M:%S")
+        end_datetime = start_datetime + timedelta(minutes=duration)
+        is_enabled = current_time >= start_datetime and current_time <= end_datetime
+        processed_exams.append((exam_id, exam_name, subject, scheduled_date, start_time, duration, class_name, is_enabled))
+
+    return render_template('student_exams.html', exams=processed_exams, current_time=current_time)
+
 
 @app.route('/student/attempt_exam/<exam_id>', methods=['GET', 'POST'])
 def attempt_exam(exam_id):
@@ -396,9 +407,9 @@ def check_student_answers():
     db = Database()
     teacher_id = session['teacher_id']
     # Fetch exams, subjects, and class names for the dropdowns from student_responses table
-    exams = db.fetch_exams_from_responses()
-    subjects = db.fetch_subjects_from_responses()
-    class_names = db.fetch_class_names_from_responses()
+    exams = {x for x in db.fetch_exams_from_responses()}
+    subjects = {x for x  in db.fetch_subjects_from_responses()}
+    class_names = {x for x in db.fetch_class_names_from_responses()}
     print('inside check_student_answers', exams, subjects, class_names)
     return render_template('select_exam.html', exams=exams, subjects=subjects, class_names=class_names)
 
@@ -486,8 +497,8 @@ def check_results():
 @app.route('/class_selector_for_teacher')
 def class_selector_for_teacher():
     db=Database()
-    class_names=db.fetch_class_names_for_results_for_teacher()
-    subjects=db.fetch_subjects_for_results_for_teacher()
+    class_names={x for x in db.fetch_class_names_for_results_for_teacher()}
+    subjects={x for x in db.fetch_subjects_for_results_for_teacher()}
     return render_template('class_selector_for_teacher.html',class_names=class_names,subjects=subjects)
 
 @app.route('/view_exam_details', methods=['GET'])

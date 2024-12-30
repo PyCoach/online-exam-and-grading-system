@@ -64,6 +64,22 @@
             background-color: #0056b3;
         }
     </style>
+    <script>
+        function updateOptions(mcqIndex) {
+            const option1 = document.querySelector(`#mcq${mcqIndex}_option1`).value;
+            const option2 = document.querySelector(`#mcq${mcqIndex}_option2`).value;
+            const option3 = document.querySelector(`#mcq${mcqIndex}_option3`).value;
+            const option4 = document.querySelector(`#mcq${mcqIndex}_option4`).value;
+            const answerSelect = document.querySelector(`#mcq${mcqIndex}_answer`);
+
+            answerSelect.innerHTML = `
+                <option value="${option1}">${option1}</option>
+                <option value="${option2}">${option2}</option>
+                <option value="${option3}">${option3}</option>
+                <option value="${option4}">${option4}</option>
+            `;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -95,17 +111,14 @@
                 <input type="text" id="mcq{{ i }}" name="mcq{{ i }}" placeholder="Enter MCQ {{ i }}" required>
 
                 <label>Options:</label>
-                <input type="text" name="mcq{{ i }}_option1" placeholder="Option A" required>
-                <input type="text" name="mcq{{ i }}_option2" placeholder="Option B" required>
-                <input type="text" name="mcq{{ i }}_option3" placeholder="Option C" required>
-                <input type="text" name="mcq{{ i }}_option4" placeholder="Option D" required>
+                <input type="text" id="mcq{{ i }}_option1" name="mcq{{ i }}_option1" placeholder="Option A" required oninput="updateOptions({{ i }})">
+                <input type="text" id="mcq{{ i }}_option2" name="mcq{{ i }}_option2" placeholder="Option B" required oninput="updateOptions({{ i }})">
+                <input type="text" id="mcq{{ i }}_option3" name="mcq{{ i }}_option3" placeholder="Option C" required oninput="updateOptions({{ i }})">
+                <input type="text" id="mcq{{ i }}_option4" name="mcq{{ i }}_option4" placeholder="Option D" required oninput="updateOptions({{ i }})">
 
                 <label for="mcq{{ i }}_answer">Correct Answer:</label>
                 <select id="mcq{{ i }}_answer" name="mcq{{ i }}_answer" required>
-                    <option value="A">Option A</option>
-                    <option value="B">Option B</option>
-                    <option value="C">Option C</option>
-                    <option value="D">Option D</option>
+                    <option value="">Select Correct Answer</option>
                 </select>
             </div>
             {% endfor %}

@@ -3,77 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Results</title>
+    <title>Show Table</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 800px;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
         }
         th, td {
             padding: 10px;
-            border: 1px solid #ccc;
-            text-align: left;
+            text-align: center;
         }
         th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even) {
             background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Student Results</h1>
-        <table>
+    <h1>Scheduled Exams</h1>
+    
+    <!-- Check if table_data is available -->
+    {% if exam_data %}
+    <table>
+        <thead>
             <tr>
+                <!-- Assuming you know the column names, replace with your actual columns -->
                 <th>Exam ID</th>
-                <th>Subject</th>
                 <th>Exam Name</th>
-                <th>Class Name</th>
-                <th>Marks Obtained</th>
-                <!-- <th>checker</th> -->
-                <th>Total Marks</th>
-                <th>Result Date</th>
-                <th>Is checked?</th>
-                <th>Details</th>
+                <th>subject</th>
+                <th>class name</th>
+                <th>scheduled_date</th>
+                <th>start_time</th>
+                <th>duration(mins)</th>
+                <!-- Add more columns as per your table structure -->
             </tr>
-            {% for result in results %}
-            <tr>
-                <td>{{ result[0] }}</td>
-                <td>{{ result[1] }}</td>
-                <td>{{ result[2] }}</td>
-                <td>{{ result[3] }}</td>
-                <td>{{ result[4] }}</td>
-                <td>{{ result[5] }}</td>
-                <td>{{result[6]}}</td>
-                <td>{{ result[7] }}</td>
-                <td><a href="/view_exam_details?exam_id={{ result[2] }}&subject={{ result[3] }}&class_name={{ result[6] }}">View Details</a></td>
-
-            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through each row in the table data and display it -->
+            {% for row in exam_data %}
+        <tr>
+            <td>{{ row[0] }}</td> <!-- Replace with actual column names if needed -->
+            <td>{{ row[1] }}</td> <!-- Replace with actual column names if needed -->
+            <td>{{ row[2] }}</td> <!-- Replace with actual column names if needed -->
+            <td>{{ row[3] }}</td> <!-- Replace with actual column names if needed -->
+            <td>{{ row[4] }}</td> <!-- Replace with actual column names if needed -->
+            <td>{{ row[5] }}</td> <!-- Replace with actual column names if needed -->
+            <td>{{ row[6] }}</td> <!-- Replace with actual column names if needed -->
+        </tr>
+            
+            
             {% endfor %}
-        </table>
-    </div>
+        </tbody>
+    </table>
+    {% else %}
+        <p>No data found.</p>
+    {% endif %}
 </body>
 </html>
