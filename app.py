@@ -1,6 +1,8 @@
 from db import Database
 from flask import Flask, render_template, request,session,redirect
 from datetime import datetime, timedelta
+import io
+import base64
 
 
 app = Flask(__name__)
@@ -25,32 +27,39 @@ def perform_registration():
     return message
     
 
-@app.route('/perform_login',methods=['post'])
+from flask import redirect, url_for
+
+@app.route('/perform_login', methods=['POST', 'GET'])
 def perform_login():
-    id=request.form.get('id').strip()
-    password=request.form.get('password').strip()
-    db=Database()
+    id = request.form.get('id', '').strip()
+    password = request.form.get('password', '').strip()
+    db = Database()
     
-    response,role,name=db.fetch(id,password)
-    print(response,role,name)
+    response, role, name = db.fetch(id, password)
     db.close_connection()
+
     if response:
-        if role=="teacher":
-            session['name']=name
-            session['teacher_id']=id
-            print(session['teacher_id'])
-            return render_template('teacher_interface.html',name=name)
-            
-        elif role=="student":
-            session['student_id']=id
-            print(session['student_id'])
-            return render_template('student_dashboard.html',name=name)
-            
+        session['name'] = name
+        if role == "teacher":
+            session['teacher_id'] = id
+            return redirect(url_for('teacher_dashboard'))  # Redirect instead of rendering
+        elif role == "student":
+            session['student_id'] = id
+            return redirect(url_for('student_dashboard'))  # Redirect instead of rendering
+
     else:
         #return error
         return "<p style='color: red; font-size: 50px;'>either user_id or password is incorrect.</p><p style='font-size: 50px;'><br> <a  href='/register'>click here</a> to register again </p>"
 
-@app.route('/process_teacher_action',methods=['post'])
+@app.route('/teacher_dashboard')
+def teacher_dashboard():
+    return render_template('teacher_interface.html', name=session.get('name'))
+
+@app.route('/student_dashboard')
+def student_dashboard():
+    return render_template('student_dashboard.html', name=session.get('name'))
+    
+@app.route('/process_teacher_action',methods=['post','get'])
 def process_teacher_action():
     action = request.form.get('action')
     if action == 'create_exam':
@@ -68,7 +77,7 @@ def process_teacher_action():
     else:
         return "Invalid action"
 
-@app.route('/create_question_paper',methods=['post'])
+@app.route('/create_question_paper',methods=['post','get'])
 def create_question_paper():
     
     print("Inside create_question_paper route")
@@ -80,15 +89,6 @@ def create_question_paper():
     session['long_marks'] = int(request.form.get('long_marks',0) or "0")
     print("long_count",session.get('long_count'))
     
-    # total_questions=mcq_count+short_count+long_count
-
-    # total_marks = (
-    #     mcq_count * mcq_marks +
-    #     short_count * short_marks +
-    #     long_count * long_marks
-    # )
-
-
     return render_template('create_question_paper.html', mcq_count=session.get('mcq_count'), short_count=session.get('short_count'), long_count=session.get('long_count'))
     
 
@@ -111,8 +111,6 @@ def add_questions():
     short_count=session.get('short_count')
     long_count=session.get('long_count')
     print(f"mcq_count: {mcq_count}")
-
-    
 
 
     # Insert MCQs
@@ -336,25 +334,16 @@ def submit_exam(exam_id):
     # Retrieve subject and class_name from the form
     subject = request.args.get('subject')
     class_name = request.args.get('class_name')
-    print("resquest.form", request.form)
-    print("Subject:", subject, "Class Name:", class_name, "Exam ID:", exam_id)
-    
     # Fetch all questions with correct answers
     questions = db.fetch_exam_questions_for_student(exam_id, subject, class_name)
-    print("Questions Fetched:", questions)
-
     # Create a dictionary for correct answers
     correct_answers = {question[0]: question[3] for question in questions}  # {question_text: correct_option}
-    print("Correct Answers:", correct_answers)
-    
+
     # Fetch submitted answers from the form
     submitted_answers = {}
     for key, value in request.form.items():
         if key not in ["subject", "class_name"]:  # Ensure it matches the expected input name
             submitted_answers[key] = value  # Use question text as key
-
-    print("Submitted Answers:", submitted_answers)
-    print("Correct Answers:", correct_answers)
 
     # Evaluate the score
     score = 0
@@ -370,7 +359,7 @@ def submit_exam(exam_id):
         is_checked = True if questions[n][1] == 'mcq' else False
         maximum_marks=questions[n][4]
         question_type=questions[n][1]
-        print("Is Checked:", is_checked)
+
         if response == correct_answer and question_type=='mcq':
             marks_awarded = next(q[4] for q in questions if q[0] == question_text)  # Get marks
             score += marks_awarded  # Increment score for correct answers
@@ -379,14 +368,16 @@ def submit_exam(exam_id):
         question_id = next(q[4] for q in questions if q[0] == question_text)
         checkers = ['automated' if is_checked else 'null'][0]
         student_responses.append((session['student_id'], exam_id, question_text, response,correct_answer, marks_awarded,maximum_marks, is_checked, checkers,class_name,subject))
-
-        print("Response:", response, "Correct Answer:", correct_answer, "Marks Awarded:", marks_awarded)
         n+=1
     print(f"MCQ Score: {score}/{total_marks}")
 
     # Save the result in the database
     student_id = session['student_id']
-
+    query=f"select * from student_responses where student_id='{student_id}' and exam_id='{exam_id}'"
+    duplicacy=db.execute(query)
+    print('duplicacy:',duplicacy)
+    if duplicacy:
+        return "<p style='color: red; font-size: 50px;'>You have already attempted this exam.</p>" 
     db.store_student_responses(student_responses)
     db.save_exam_result(student_id, exam_id, subject, class_name, score, total_marks)
 
@@ -475,7 +466,7 @@ def submit_marks():
     #     print("all answers are checked")
     db.update_exam_result(student_id, exam_id,  marks_scored, maximum_marks)
         
-    time.sleep(0.5)
+
     message = "Marks submitted successfully!"
     return redirect('/check_student_answers')  # Redirect to the teacher's dashboard or another appropriate page
 
@@ -504,30 +495,22 @@ def class_selector_for_teacher():
 @app.route('/view_exam_details', methods=['GET'])
 def view_exam_details():
     import matplotlib.pyplot as plt
-    import io
-    import base64
     db = Database()
     student_id = session['student_id']
     exam_id,subject,class_name=db.execute(f"select exam_id,subject,class_name from exam_results where student_id='{session['student_id']}'")[0]
-    # exam_id = request.args.get('exam_id')
-    # subject = request.args.get('subject')
-    # class_name = request.args.get('class_name')
-    
-    
-    # Fetch student responses for the exam
+    print(exam_id,subject,class_name)
+  
     student_responses = db.fetch_student_responses_by_exam_for_analysis(student_id, exam_id)
-    print('student_responses:',student_responses,'-------------------------')
+    print('student_responses:',student_responses)
     
-    # Fetch all responses for the exam for comparison
     all_responses = db.fetch_all_responses_by_exam_for_analysis(exam_id, subject, class_name)
-    print('all_responses:',all_responses,'-------------------------')
+    print('all_responses:',all_responses)
     
     student_scores = [response[4] for response in student_responses]
     all_scores = [response[3] for response in all_responses]
-    print('student_scores:',student_scores,'-------------------------')
-    print('all_scores:',all_scores,'-------------------------')
-    # Perform data analysis
-    # (Implement data analysis logic here)
+    print('student_scores:',student_scores)
+    print('all_scores:',all_scores)
+   
     average_score = sum(all_scores) / len(all_scores) if all_scores else 0
     # Histogram of student's scores
     fig, ax = plt.subplots(2, 2, figsize=(12, 12))
@@ -564,6 +547,8 @@ def view_exam_details():
     img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
     buf.close()
     return render_template('exam_result_details.html', student_responses=student_responses, all_responses=all_responses,img_base64=img_base64)
-
+    # your score vs average score
+    # distribution of all students scores
+    # compare individual scores with other scores using bar
 
 app.run(host='0.0.0.0', port=5000,debug=True)

@@ -1,0 +1,14 @@
+DELIMITER $$
+
+CREATE TRIGGER set_question_id
+BEFORE INSERT ON student_responses
+FOR EACH ROW
+BEGIN
+    IF NEW.question_id IS NULL THEN
+        SET NEW.question_id = (
+            SELECT IFNULL(MAX(question_id), 0) + 1 FROM student_responses
+        );
+    END IF;
+END$$
+
+DELIMITER ;

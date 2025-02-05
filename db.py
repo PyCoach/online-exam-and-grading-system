@@ -308,7 +308,7 @@ class Database:
     
     def fetch_exam_results_for_student(self, student_id):
         query = """
-        SELECT  exams.exam_id, exams.subject,exams.exam_name,exams.class_name ,marks_obtained, total_marks,exam_results.result_date,is_complete,students.name,
+        SELECT  exams.exam_id, exams.subject,exams.exam_name,exams.class_name ,marks_obtained, total_marks,exam_results.result_date,is_complete,students.name
         FROM exam_results 
         join exams  on exams.exam_id=exam_results.exam_id 
         JOIN registered_students  ON exam_results.student_id = registered_students.id
@@ -376,4 +376,12 @@ class Database:
         WHERE exam_id = %s AND subject = %s AND class_name = %s
         """
         self.cursor.execute(query, (exam_id, subject, class_name))
+        return self.cursor.fetchall()
+    
+    def fetch_exam_results_for_analysis(self, exam_id):
+        query = """
+        SELECT registered_students.id,name, marks_obtained, total_marks
+        FROM exam_results join registered_students on exam_results.student_id=registered_students.id join students on registered_students.student_id=students.student_id
+        where exam_id=%s and is_complete=1"""
+        self.cursor.execute(query, (exam_id,))
         return self.cursor.fetchall()
